@@ -112,6 +112,7 @@
     <Content Include="assets\vendor\swiper\swiper-bundle.min.js" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="ManageCourses.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +146,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="ManageCourses.aspx.cs">
+      <DependentUpon>ManageCourses.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageCourses.aspx.designer.cs">
+      <DependentUpon>ManageCourses.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Site.Master.cs">
