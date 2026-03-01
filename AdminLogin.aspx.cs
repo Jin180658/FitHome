@@ -28,7 +28,7 @@ namespace FitHome
 
             // 3. Connect to the database and verify the account and password
 
-/           // Retrieve data from Web.config
+           // Retrieve data from Web.config
             string connString = ConfigurationManager.ConnectionStrings["FitHomeDB"].ConnectionString;
 
             using (SqlConnection conn = new SqlConnection(connString))
