@@ -11,21 +11,46 @@ namespace FitHome
 {
     public partial class EditProfile : System.Web.UI.Page
     {
-        // This grabs the connection string from your Web.config file
-        string connString = ConfigurationManager.ConnectionStrings["FitHomeDBConnectionString"]?.ConnectionString;
+        // Grabs the connection string from your Web.config file using your leader's exact name
+        string connString = ConfigurationManager.ConnectionStrings["FitHomeDB"]?.ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                // TODO: 1. Check if user is logged in using Session["UserID"]
-                // TODO: 2. Write a SELECT SQL query to fetch their current Weight, Height, and Email
-                // TODO: 3. Populate txtEditWeight, txtEditHeight, and txtEmail
+                // Simulate User Session (Hardcoded for testing. Switch to Session["UserID"] later)
+                int currentUserId = 1;
 
-                // For testing front-end without DB:
-                txtEditWeight.Text = "70";
-                txtEditHeight.Text = "165";
-                txtEmail.Text = "member@fithome.com";
+                // SQL Query to fetch the user's current profile data when the page loads
+                string query = "SELECT Email, Weight, Height FROM Users WHERE UserID = @UserID";
+
+                try
+                {
+                    using (SqlConnection conn = new SqlConnection(connString))
+                    {
+                        using (SqlCommand cmd = new SqlCommand(query, conn))
+                        {
+                            cmd.Parameters.AddWithValue("@UserID", currentUserId);
+                            conn.Open();
+
+                            using (SqlDataReader reader = cmd.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    // Populate the textboxes with the real database values
+                                    txtEmail.Text = reader["Email"].ToString();
+                                    txtEditWeight.Text = reader["Weight"].ToString();
+                                    txtEditHeight.Text = reader["Height"].ToString();
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lblStatus.Text = "❌ Error loading profile data: " + ex.Message;
+                    lblStatus.CssClass = "fw-bold d-block mb-3 text-center text-danger";
+                }
             }
         }
 
@@ -33,8 +58,8 @@ namespace FitHome
         {
             try
             {
-                // In a real scenario, you get the UserID from the active login session
-                int currentUserId = 1; // Hardcoded for testing. Replace with: Convert.ToInt32(Session["UserID"]);
+                // Simulate User Session
+                int currentUserId = 1;
 
                 decimal newWeight = Convert.ToDecimal(txtEditWeight.Text);
                 decimal newHeight = Convert.ToDecimal(txtEditHeight.Text);
@@ -43,7 +68,7 @@ namespace FitHome
                 // Build the SQL UPDATE command
                 string query = "UPDATE Users SET Weight = @Weight, Height = @Height";
 
-                // Only update the password if they typed a new one
+                // Only update the password if they actually typed a new one
                 if (!string.IsNullOrEmpty(newPassword))
                 {
                     query += ", Password = @Password";
@@ -51,15 +76,14 @@ namespace FitHome
 
                 query += " WHERE UserID = @UserID";
 
-                // Execute the SQL Query
-                /* UNCOMMENT THIS WHEN READY TO CONNECT TO DATABASE
+                // Execute the SQL UPDATE Query
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
                     SqlCommand cmd = new SqlCommand(query, conn);
                     cmd.Parameters.AddWithValue("@Weight", newWeight);
                     cmd.Parameters.AddWithValue("@Height", newHeight);
                     cmd.Parameters.AddWithValue("@UserID", currentUserId);
-                    
+
                     if (!string.IsNullOrEmpty(newPassword))
                     {
                         cmd.Parameters.AddWithValue("@Password", newPassword);
@@ -68,7 +92,6 @@ namespace FitHome
                     conn.Open();
                     cmd.ExecuteNonQuery();
                 }
-                */
 
                 // Show success message
                 lblStatus.Text = "✅ Profile updated successfully!";

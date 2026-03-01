@@ -12,8 +12,8 @@ namespace FitHome
 {
     public partial class TrainingHistory : System.Web.UI.Page
     {
-        // Grabs the connection string from your Web.config file
-        string connString = ConfigurationManager.ConnectionStrings["FitHomeDBConnectionString"]?.ConnectionString;
+        // Grabs the connection string from your Web.config file using your leader's exact name
+        string connString = ConfigurationManager.ConnectionStrings["FitHomeDB"]?.ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,10 +25,10 @@ namespace FitHome
 
         private void BindGrid()
         {
-            // Simulate User Session
-            int currentUserId = 1; // Replace with: Convert.ToInt32(Session["UserID"]);
+            // Simulate User Session (Hardcoded for now, switch to Session["UserID"] later)
+            int currentUserId = 1;
 
-            /* --- UNCOMMENT THIS WHEN DATABASE IS CONNECTED ---
+            // SQL Query to get the user's completed courses
             string query = @"SELECT up.ProgressID, c.Title, c.Category, up.DateCompleted 
                              FROM UserProgress up 
                              INNER JOIN Courses c ON up.CourseID = c.CourseID 
@@ -49,21 +49,6 @@ namespace FitHome
                     }
                 }
             }
-            */
-
-            // --- TEMPORARY DUMMY DATA FOR TESTING THE UI ---
-            // Delete this block once your database is connected
-            DataTable dummyData = new DataTable();
-            dummyData.Columns.Add("ProgressID");
-            dummyData.Columns.Add("Title");
-            dummyData.Columns.Add("Category");
-            dummyData.Columns.Add("DateCompleted", typeof(DateTime));
-            dummyData.Rows.Add(1, "15-Minute Morning Yoga", "Yoga", DateTime.Now.AddDays(-1));
-            dummyData.Rows.Add(2, "Full Body HIIT", "Cardio", DateTime.Now.AddDays(-3));
-            dummyData.Rows.Add(3, "Core Strength Basics", "Strength", DateTime.Now.AddDays(-5));
-
-            gvTrainingHistory.DataSource = dummyData;
-            gvTrainingHistory.DataBind();
         }
 
         protected void gvTrainingHistory_RowDeleting(object sender, GridViewDeleteEventArgs e)
@@ -72,9 +57,9 @@ namespace FitHome
             {
                 // Get the ProgressID of the row that was clicked
                 int progressId = Convert.ToInt32(gvTrainingHistory.DataKeys[e.RowIndex].Value);
-                int currentUserId = 1; // Replace with session ID
+                int currentUserId = 1; // Replace with session ID later
 
-                /* --- UNCOMMENT THIS WHEN DATABASE IS CONNECTED ---
+                // SQL Query to delete the specific training record
                 string query = "DELETE FROM UserProgress WHERE ProgressID = @ProgressID AND UserID = @UserID";
 
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -83,17 +68,16 @@ namespace FitHome
                     {
                         cmd.Parameters.AddWithValue("@ProgressID", progressId);
                         cmd.Parameters.AddWithValue("@UserID", currentUserId);
-                        
+
                         conn.Open();
                         cmd.ExecuteNonQuery();
                     }
                 }
-                */
 
                 lblStatus.Text = "✅ Workout record deleted successfully!";
                 lblStatus.CssClass = "fw-bold d-block mb-3 text-center text-success";
 
-                // Refresh the grid to show the updated list
+                // Refresh the grid to show the updated list after deletion
                 BindGrid();
             }
             catch (Exception ex)
