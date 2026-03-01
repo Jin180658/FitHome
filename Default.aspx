@@ -1,293 +1,60 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="FitHome.Default" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
-    <main class="main">
+    <style>
+        /* This centers the whole page content */
+        .main-wrapper {
+            max-width: 1200px; /* Limits the width so it doesn't stretch too far on big screens */
+            margin: 0 auto;    /* The magic trick: 0 top/bottom, auto left/right centers it */
+            padding: 0 20px;   /* Adds a little breathing room on the sides for mobile */
+        }
+    </style>
 
-        <section id="courses-hero" class="courses-hero section light-background">
-            <div class="hero-content">
-                <div class="container">
-                    <div class="row align-items-center">
-                        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                            <div class="hero-text">
-                                <h1>Transform Your Future with FitHome</h1>
-                                <p>Join our home fitness programs today.</p>
-                                <div class="hero-buttons">
-                                    <a href="Courses.aspx" class="btn btn-primary">Browse Courses</a>
-                                    <a href="#about" class="btn btn-outline">Learn More</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-                            <div class="hero-image">
-                                <div class="main-image">
-                                    <img src="assets/img/education/courses-13.webp" alt="Online Learning" class="img-fluid">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="main-wrapper">
+        <div style="background-color: #f4f4f4; padding: 60px 20px; text-align: center; border-bottom: 2px solid #ddd; border-radius: 10px; margin-top: 20px;">
+            <h1 style="font-size: 2.5em; margin-bottom: 10px;">Welcome to FitHome</h1>
+            <p style="font-size: 1.2em; color: #666; max-width: 700px; margin: 0 auto 25px auto;">
+                Your personal hub for fitness training, BMI tracking, and expert courses.
+            </p>
+            
+            <div style="margin-top: 30px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                <asp:HyperLink ID="btnRegister" runat="server" NavigateUrl="~/Register.aspx" 
+                style="padding: 12px 28px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; transition: 0.3s; display: inline-block;">
+                Join Now (Register)
+                </asp:HyperLink>
+
+            <asp:HyperLink ID="btnLogin" runat="server" NavigateUrl="~/Login.aspx" 
+                style="padding: 12px 28px; background-color: #6c757d; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; transition: 0.3s; display: inline-block;">
+                Member Login
+                </asp:HyperLink>
+
+            <asp:HyperLink ID="btnBrowse" runat="server" NavigateUrl="~/Courses.aspx" 
+                style="padding: 12px 28px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; transition: 0.3s; display: inline-block;">
+                Explore Courses
+                </asp:HyperLink>
             </div>
-        </section>
-
-        <section id="featured-courses" class="featured-courses section">
-            <div class="container section-title" data-aos="fade-up">
-                <h2>Featured Courses</h2>
-            </div>
-            <div class="container">
-                        <div class="row gy-4">
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="course-card">
-              <div class="course-image">
-                <img src="assets/img/education/students-9.webp" alt="Course" class="img-fluid">
-                <div class="badge featured">Featured</div>
-                <div class="price-badge">$149</div>
-              </div>
-              <div class="course-content">
-                <div class="course-meta">
-                  <span class="level">Beginner</span>
-                  <span class="duration">8 Weeks</span>
-                </div>
-                <h3><a href="#">Digital Marketing Fundamentals</a></h3>
-                <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua enim ad minim veniam.</p>
-                <div class="instructor">
-                  <img src="assets/img/person/person-f-3.webp" alt="Instructor" class="instructor-img">
-                  <div class="instructor-info">
-                    <h6>Sarah Johnson</h6>
-                    <span>Marketing Expert</span>
-                  </div>
-                </div>
-                <div class="course-stats">
-                  <div class="rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-half"></i>
-                    <span>(4.5)</span>
-                  </div>
-                  <div class="students">
-                    <i class="bi bi-people-fill"></i>
-                    <span>342 students</span>
-                  </div>
-                </div>
-                <a href="enroll.html" class="btn-course">Enroll Now</a>
-              </div>
-            </div>
-          </div><!-- End Course Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="course-card">
-              <div class="course-image">
-                <img src="assets/img/education/campus-4.webp" alt="Course" class="img-fluid">
-                <div class="badge new">New</div>
-                <div class="price-badge">$89</div>
-              </div>
-              <div class="course-content">
-                <div class="course-meta">
-                  <span class="level">Intermediate</span>
-                  <span class="duration">6 Weeks</span>
-                </div>
-                <h3><a href="#">Web Development with JavaScript</a></h3>
-                <p>Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit.</p>
-                <div class="instructor">
-                  <img src="assets/img/person/person-m-5.webp" alt="Instructor" class="instructor-img">
-                  <div class="instructor-info">
-                    <h6>Michael Chen</h6>
-                    <span>Full Stack Developer</span>
-                  </div>
-                </div>
-                <div class="course-stats">
-                  <div class="rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <span>(5.0)</span>
-                  </div>
-                  <div class="students">
-                    <i class="bi bi-people-fill"></i>
-                    <span>156 students</span>
-                  </div>
-                </div>
-                <a href="enroll.html" class="btn-course">Enroll Now</a>
-              </div>
-            </div>
-          </div><!-- End Course Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="course-card">
-              <div class="course-image">
-                <img src="assets/img/education/students-7.webp" alt="Course" class="img-fluid">
-                <div class="badge certificate">Certificate</div>
-                <div class="price-badge">Free</div>
-              </div>
-              <div class="course-content">
-                <div class="course-meta">
-                  <span class="level">Beginner</span>
-                  <span class="duration">4 Weeks</span>
-                </div>
-                <h3><a href="#">Introduction to Data Science</a></h3>
-                <p>Excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum sed ut perspiciatis unde omnis.</p>
-                <div class="instructor">
-                  <img src="assets/img/person/person-f-7.webp" alt="Instructor" class="instructor-img">
-                  <div class="instructor-info">
-                    <h6>Dr. Emily Watson</h6>
-                    <span>Data Scientist</span>
-                  </div>
-                </div>
-                <div class="course-stats">
-                  <div class="rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star"></i>
-                    <span>(4.2)</span>
-                  </div>
-                  <div class="students">
-                    <i class="bi bi-people-fill"></i>
-                    <span>789 students</span>
-                  </div>
-                </div>
-                <a href="enroll.html" class="btn-course">Enroll Now</a>
-              </div>
-            </div>
-          </div><!-- End Course Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-            <div class="course-card">
-              <div class="course-image">
-                <img src="assets/img/education/education-5.webp" alt="Course" class="img-fluid">
-                <div class="badge popular">Popular</div>
-                <div class="price-badge">$199</div>
-              </div>
-              <div class="course-content">
-                <div class="course-meta">
-                  <span class="level">Advanced</span>
-                  <span class="duration">12 Weeks</span>
-                </div>
-                <h3><a href="#">Business Strategy &amp; Leadership</a></h3>
-                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium totam rem aperiam eaque ipsa quae ab illo.</p>
-                <div class="instructor">
-                  <img src="assets/img/person/person-m-8.webp" alt="Instructor" class="instructor-img">
-                  <div class="instructor-info">
-                    <h6>Robert Anderson</h6>
-                    <span>Business Consultant</span>
-                  </div>
-                </div>
-                <div class="course-stats">
-                  <div class="rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-half"></i>
-                    <span>(4.7)</span>
-                  </div>
-                  <div class="students">
-                    <i class="bi bi-people-fill"></i>
-                    <span>234 students</span>
-                  </div>
-                </div>
-                <a href="enroll.html" class="btn-course">Enroll Now</a>
-              </div>
-            </div>
-          </div><!-- End Course Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-            <div class="course-card">
-              <div class="course-image">
-                <img src="assets/img/education/activities-3.webp" alt="Course" class="img-fluid">
-                <div class="badge certificate">Certificate</div>
-                <div class="price-badge">$129</div>
-              </div>
-              <div class="course-content">
-                <div class="course-meta">
-                  <span class="level">Intermediate</span>
-                  <span class="duration">10 Weeks</span>
-                </div>
-                <h3><a href="#">Graphic Design Masterclass</a></h3>
-                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit sed quia consequuntur magni dolores eos qui ratione voluptatem.</p>
-                <div class="instructor">
-                  <img src="assets/img/person/person-f-12.webp" alt="Instructor" class="instructor-img">
-                  <div class="instructor-info">
-                    <h6>Lisa Martinez</h6>
-                    <span>Creative Director</span>
-                  </div>
-                </div>
-                <div class="course-stats">
-                  <div class="rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star"></i>
-                    <span>(4.3)</span>
-                  </div>
-                  <div class="students">
-                    <i class="bi bi-people-fill"></i>
-                    <span>467 students</span>
-                  </div>
-                </div>
-                <a href="enroll.html" class="btn-course">Enroll Now</a>
-              </div>
-            </div>
-          </div><!-- End Course Item -->
-
-          <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-            <div class="course-card">
-              <div class="course-image">
-                <img src="assets/img/education/teacher-6.webp" alt="Course" class="img-fluid">
-                <div class="badge new">New</div>
-                <div class="price-badge">$99</div>
-              </div>
-              <div class="course-content">
-                <div class="course-meta">
-                  <span class="level">Beginner</span>
-                  <span class="duration">5 Weeks</span>
-                </div>
-                <h3><a href="#">Photography for Beginners</a></h3>
-                <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas.</p>
-                <div class="instructor">
-                  <img src="assets/img/person/person-m-11.webp" alt="Instructor" class="instructor-img">
-                  <div class="instructor-info">
-                    <h6>James Wilson</h6>
-                    <span>Professional Photographer</span>
-                  </div>
-                </div>
-                <div class="course-stats">
-                  <div class="rating">
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-fill"></i>
-                    <i class="bi bi-star-half"></i>
-                    <span>(4.6)</span>
-                  </div>
-                  <div class="students">
-                    <i class="bi bi-people-fill"></i>
-                    <span>298 students</span>
-                  </div>
-                </div>
-                <a href="enroll.html" class="btn-course">Enroll Now</a>
-              </div>
-            </div>
-          </div><!-- End Course Item -->
-
         </div>
 
-        <div class="more-courses text-center" data-aos="fade-up" data-aos-delay="500">
-          <a href="courses.html" class="btn-more">View All Courses</a>
+        <div style="display: flex; justify-content: space-between; padding: 60px 0; text-align: center; gap: 20px;">
+            
+            <div style="flex: 1; padding: 20px; background: #fff; border: 1px solid #eee; border-radius: 8px;">
+                <div style="height: 100px; background: #f9f9f9; line-height: 100px; margin-bottom: 15px; border-radius: 5px; color: #ccc;">[Course Image]</div>
+                <h3 style="margin-bottom: 10px;">Professional Courses</h3>
+                <p style="color: #777; font-size: 0.95em;">Access high-quality training videos curated by experts.</p>
+            </div>
+
+            <div style="flex: 1; padding: 20px; background: #fff; border: 1px solid #eee; border-radius: 8px;">
+                <div style="height: 100px; background: #f9f9f9; line-height: 100px; margin-bottom: 15px; border-radius: 5px; color: #ccc;">[BMI Tool]</div>
+                <h3 style="margin-bottom: 10px;">Track Your Progress</h3>
+                <p style="color: #777; font-size: 0.95em;">Calculate your BMI and keep a history of your workouts.</p>
+            </div>
+
+            <div style="flex: 1; padding: 20px; background: #fff; border: 1px solid #eee; border-radius: 8px;">
+                <div style="height: 100px; background: #f9f9f9; line-height: 100px; margin-bottom: 15px; border-radius: 5px; color: #ccc;">[Member Image]</div>
+                <h3 style="margin-bottom: 10px;">Join Our Community</h3>
+                <p style="color: #777; font-size: 0.95em;">Create an account today to save your favorites and records.</p>
+            </div>
+
         </div>
-
-      </div>
-
-                </div>
-        </section>
-
-    </main>
-
+    </div>
 </asp:Content>
