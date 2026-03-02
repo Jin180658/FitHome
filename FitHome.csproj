@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AdminDashboard.aspx" />
     <Content Include="AdminLogin.aspx" />
     <Content Include="App_Data\FitHomeDB.mdf" />
     <Content Include="App_Data\FitHomeDB_log.ldf">
@@ -110,11 +111,16 @@
     <Content Include="assets\vendor\swiper\swiper-bundle.min.css" />
     <Content Include="assets\vendor\swiper\swiper-bundle.min.js" />
     <Content Include="BMICalculator.aspx" />
+    <Content Include="CourseCatalog.aspx" />
+    <Content Include="CourseDetails.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="EditProfile.aspx" />
     <Content Include="ForgotPassword.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
+    <Content Include="ManageCourses.aspx" />
+    <Content Include="ManageUsers.aspx" />
+    <Content Include="MyFavorites.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="TrainingHistory.aspx" />
     <Content Include="UserDashboard.aspx" />
@@ -127,6 +133,13 @@
     </Compile>
     <Compile Include="Admin.Master.designer.cs">
       <DependentUpon>Admin.Master</DependentUpon>
+    </Compile>
+    <Compile Include="AdminDashboard.aspx.cs">
+      <DependentUpon>AdminDashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminDashboard.aspx.designer.cs">
+      <DependentUpon>AdminDashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="AdminLogin.aspx.cs">
       <DependentUpon>AdminLogin.aspx</DependentUpon>
@@ -141,6 +154,20 @@
     </Compile>
     <Compile Include="BMICalculator.aspx.designer.cs">
       <DependentUpon>BMICalculator.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CourseCatalog.aspx.cs">
+      <DependentUpon>CourseCatalog.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CourseCatalog.aspx.designer.cs">
+      <DependentUpon>CourseCatalog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CourseDetails.aspx.cs">
+      <DependentUpon>CourseDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CourseDetails.aspx.designer.cs">
+      <DependentUpon>CourseDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -172,6 +199,27 @@
     </Compile>
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageCourses.aspx.cs">
+      <DependentUpon>ManageCourses.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageCourses.aspx.designer.cs">
+      <DependentUpon>ManageCourses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageUsers.aspx.cs">
+      <DependentUpon>ManageUsers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageUsers.aspx.designer.cs">
+      <DependentUpon>ManageUsers.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MyFavorites.aspx.cs">
+      <DependentUpon>MyFavorites.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MyFavorites.aspx.designer.cs">
+      <DependentUpon>MyFavorites.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.aspx.cs">
