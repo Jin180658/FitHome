@@ -24,6 +24,24 @@ namespace FitHome
         protected global::System.Web.UI.WebControls.Label lblTitle;
 
         /// <summary>
+        /// lblDescription control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDescription;
+
+        /// <summary>
+        /// pnlVideo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel pnlVideo;
+
+        /// <summary>
         /// litVideo control.
         /// </summary>
         /// <remarks>
@@ -33,13 +51,13 @@ namespace FitHome
         protected global::System.Web.UI.WebControls.Literal litVideo;
 
         /// <summary>
-        /// lblDescription control.
+        /// pnlFavorite control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDescription;
+        protected global::System.Web.UI.WebControls.Panel pnlFavorite;
 
         /// <summary>
         /// btnFavorite control.
