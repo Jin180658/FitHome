@@ -7,7 +7,7 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>FitHome Academy</title>
     
-    <link href="assets/img/favicon.png" rel="icon">
+    <link href="assets/img/logo.png" rel="icon">
     
     <link href="https://fonts.googleapis.com" rel="preconnect">
     <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
@@ -30,7 +30,7 @@
         <header id="header" class="header d-flex align-items-center sticky-top">
             <div class="container-fluid container-xl position-relative d-flex align-items-center">
                 <a href="Default.aspx" class="logo d-flex align-items-center me-auto">
-                    <h1 class="sitename">Learner</h1>
+                    <h1 class="sitename">FitHome</h1>
                 </a>
 
                 <nav id="navmenu" class="navmenu">
@@ -58,7 +58,7 @@
                 <div class="row gy-4">
                     <div class="col-lg-5 col-md-12 footer-about">
                         <a href="Default.aspx" class="logo d-flex align-items-center">
-                            <span class="sitename">Learner</span>
+                            <span class="sitename">FitHome</span>
                         </a>
                         <p>FitHome Academy - Your partner in home fitness.</p>
                         <div class="social-links d-flex mt-4">
