@@ -51,13 +51,13 @@ namespace FitHome
         protected global::System.Web.UI.WebControls.TextBox txtVideoLink;
 
         /// <summary>
-        /// txtThumbnail control.
+        /// fuThumbnail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtThumbnail;
+        protected global::System.Web.UI.WebControls.FileUpload fuThumbnail;
 
         /// <summary>
         /// txtDescription control.

@@ -416,7 +416,3 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
-
-# Ignore Local Database physical files
-App_Data/*.mdf
-App_Data/*.ldf

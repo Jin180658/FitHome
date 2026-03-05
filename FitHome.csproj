@@ -75,6 +75,7 @@
     </Content>
     <Content Include="assets\css\main.css" />
     <Content Include="assets\img\apple-touch-icon.png" />
+    <Content Include="assets\img\courses\default-course.jpeg" />
     <Content Include="assets\img\favicon.png" />
     <Content Include="assets\img\logo.png" />
     <Content Include="assets\img\profiles\defaultUser.png" />

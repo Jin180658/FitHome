@@ -3,23 +3,21 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Web.UI.WebControls;
+using System.IO; // Required for file handling
 
 namespace FitHome
 {
     public partial class ManageCourses : System.Web.UI.Page
     {
-        // my data connection line
         string connString = ConfigurationManager.ConnectionStrings["FitHomeDB"].ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // security check: if not admin, kick back to login
             if (Session["AdminName"] == null)
             {
                 Response.Redirect("AdminLogin.aspx");
             }
 
-            // only load the table when page first opens
             if (!IsPostBack)
             {
                 LoadCoursesGrid();
@@ -27,7 +25,7 @@ namespace FitHome
         }
 
         // ==========================================
-        // FEATURE 1: READ (Load data into GridView)
+        // FEATURE 1: READ (Load data)
         // ==========================================
         private void LoadCoursesGrid()
         {
@@ -39,33 +37,54 @@ namespace FitHome
                     using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
                     {
                         DataTable dt = new DataTable();
-                        sda.Fill(dt); // fill the virtual table with data from DB
-
+                        sda.Fill(dt);
                         gvCourses.DataSource = dt;
-                        gvCourses.DataBind(); // stick the data to the UI grid
+                        gvCourses.DataBind();
                     }
                 }
             }
         }
 
         // ==========================================
-        // FEATURE 2: INSERT (Upload new course)
+        // FEATURE 2: INSERT (Upload course & image)
         // ==========================================
         protected void btnAddCourse_Click(object sender, EventArgs e)
         {
             string title = txtTitle.Text.Trim();
             string category = ddlCategory.SelectedValue;
             string videoLink = txtVideoLink.Text.Trim();
-            string thumbnail = txtThumbnail.Text.Trim();
             string desc = txtDescription.Text.Trim();
 
-            // simple validation
+            // Default image if admin doesn't upload one
+            string finalFileName = "default-course.jpeg";
+
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(category) || string.IsNullOrEmpty(videoLink))
             {
                 lblMessage.Text = "Title, Category, and Video Link are required!";
                 lblMessage.CssClass = "d-block mb-3 fw-bold text-danger";
                 lblMessage.Visible = true;
                 return;
+            }
+
+            // ✨ Handle physical image upload
+            if (fuThumbnail.HasFile)
+            {
+                try
+                {
+                    // Add timestamp to prevent filename collision (e.g., two people uploading 'yoga.jpg')
+                    string fileName = DateTime.Now.ToString("yyyyMMddHHmmss_") + Path.GetFileName(fuThumbnail.PostedFile.FileName);
+                    string savePath = Server.MapPath("~/assets/img/courses/") + fileName;
+
+                    fuThumbnail.SaveAs(savePath); // Save file to project folder
+                    finalFileName = fileName;     // Use this name for database
+                }
+                catch (Exception ex)
+                {
+                    lblMessage.Text = "Image upload failed: " + ex.Message;
+                    lblMessage.CssClass = "d-block mb-3 fw-bold text-danger";
+                    lblMessage.Visible = true;
+                    return;
+                }
             }
 
             using (SqlConnection conn = new SqlConnection(connString))
@@ -77,63 +96,74 @@ namespace FitHome
                     cmd.Parameters.AddWithValue("@Desc", desc);
                     cmd.Parameters.AddWithValue("@Video", videoLink);
                     cmd.Parameters.AddWithValue("@Cat", category);
-                    cmd.Parameters.AddWithValue("@Thumb", thumbnail);
+                    cmd.Parameters.AddWithValue("@Thumb", finalFileName); // Save filename to DB
 
                     conn.Open();
-                    cmd.ExecuteNonQuery(); // run the insert command
+                    cmd.ExecuteNonQuery();
                 }
             }
 
-            // show success message and clear form
-            lblMessage.Text = "Course added successfully!";
+            lblMessage.Text = "Course and image uploaded successfully!";
             lblMessage.CssClass = "d-block mb-3 fw-bold text-success";
             lblMessage.Visible = true;
 
-            txtTitle.Text = ""; txtVideoLink.Text = ""; txtThumbnail.Text = ""; txtDescription.Text = "";
+            txtTitle.Text = ""; txtVideoLink.Text = ""; txtDescription.Text = "";
             ddlCategory.SelectedIndex = 0;
-
-            // refresh the table to show the new course
             LoadCoursesGrid();
         }
 
         // ==========================================
-        // FEATURE 3: UPDATE & DELETE (GridView Events)
+        // FEATURE 3: UPDATE & DELETE
         // ==========================================
 
-        // when admin clicks "Edit" button
         protected void gvCourses_RowEditing(object sender, GridViewEditEventArgs e)
         {
-            gvCourses.EditIndex = e.NewEditIndex; // change that row to textboxes
+            gvCourses.EditIndex = e.NewEditIndex;
             LoadCoursesGrid();
         }
 
-        // when admin clicks "Cancel" while editing
         protected void gvCourses_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
-            gvCourses.EditIndex = -1; // change back to normal text
+            gvCourses.EditIndex = -1;
             LoadCoursesGrid();
         }
 
-        // when admin clicks "Update" after editing
         protected void gvCourses_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            // get the ID of the course we are editing
-            int courseID = Convert.ToInt32(gvCourses.DataKeys[e.RowIndex].Value);
+            // Get ID and Old Thumbnail from DataKeys
+            int courseID = Convert.ToInt32(gvCourses.DataKeys[e.RowIndex].Values["CourseID"]);
+            string oldThumbnail = gvCourses.DataKeys[e.RowIndex].Values["Thumbnail"].ToString();
 
-            // get the new typed values from the grid row
             GridViewRow row = gvCourses.Rows[e.RowIndex];
+
+            // Read standard textboxes
             string newTitle = (row.Cells[1].Controls[0] as TextBox).Text;
-            string newCat = (row.Cells[2].Controls[0] as TextBox).Text;
             string newVideo = (row.Cells[3].Controls[0] as TextBox).Text;
+
+            // ✨ Read from TemplateFields (FindControl)
+            DropDownList ddlEditCategory = row.FindControl("ddlEditCategory") as DropDownList;
+            FileUpload fuEditThumbnail = row.FindControl("fuEditThumbnail") as FileUpload;
+
+            string newCat = ddlEditCategory != null ? ddlEditCategory.SelectedValue : "";
+            string finalThumbnail = oldThumbnail; // Default to keep old image
+
+            // ✨ Handle new image upload during edit
+            if (fuEditThumbnail != null && fuEditThumbnail.HasFile)
+            {
+                string fileName = DateTime.Now.ToString("yyyyMMddHHmmss_") + Path.GetFileName(fuEditThumbnail.PostedFile.FileName);
+                fuEditThumbnail.SaveAs(Server.MapPath("~/assets/img/courses/") + fileName);
+                finalThumbnail = fileName; // Replace old image name with new one
+            }
 
             using (SqlConnection conn = new SqlConnection(connString))
             {
-                string sql = "UPDATE Courses SET Title=@Title, Category=@Cat, VideoLink=@Video WHERE CourseID=@ID";
+                string sql = "UPDATE Courses SET Title=@Title, Category=@Cat, VideoLink=@Video, Thumbnail=@Thumb WHERE CourseID=@ID";
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
                     cmd.Parameters.AddWithValue("@Title", newTitle);
                     cmd.Parameters.AddWithValue("@Cat", newCat);
                     cmd.Parameters.AddWithValue("@Video", newVideo);
+                    cmd.Parameters.AddWithValue("@Thumb", finalThumbnail);
                     cmd.Parameters.AddWithValue("@ID", courseID);
 
                     conn.Open();
@@ -141,14 +171,13 @@ namespace FitHome
                 }
             }
 
-            gvCourses.EditIndex = -1; // close edit mode
-            LoadCoursesGrid(); // refresh the table
+            gvCourses.EditIndex = -1;
+            LoadCoursesGrid();
         }
 
-        // when admin clicks "Delete" button
         protected void gvCourses_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            int courseID = Convert.ToInt32(gvCourses.DataKeys[e.RowIndex].Value);
+            int courseID = Convert.ToInt32(gvCourses.DataKeys[e.RowIndex].Values["CourseID"]);
 
             using (SqlConnection conn = new SqlConnection(connString))
             {
@@ -161,7 +190,7 @@ namespace FitHome
                 }
             }
 
-            LoadCoursesGrid(); // refresh the table
+            LoadCoursesGrid();
         }
     }
 }

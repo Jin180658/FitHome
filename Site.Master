@@ -57,7 +57,7 @@
             <div class="container footer-top">
                 <div class="row gy-4">
                     <div class="col-lg-5 col-md-12 footer-about">
-                        <a href="Default.aspx" class="logo d-flex align-items-center">
+                        <a href="Default.aspx" class="logo d-flex align-items-center text-decoration-none">
                             <span class="sitename">FitHome</span>
                         </a>
                         <p>FitHome Academy - Your partner in home fitness.</p>
@@ -68,10 +68,17 @@
                             <a href=""><i class="bi bi-linkedin"></i></a>
                         </div>
                     </div>
-                    </div>
+                </div>
             </div>
-            <div class="container copyright text-center mt-4">
-                <p>© <span>Copyright</span> <strong class="px-1 sitename">FitHome</strong> <span>All Rights Reserved</span></p>
+            
+            <div class="container copyright text-center mt-4 pb-3">
+                <p class="mb-2">© <span>Copyright</span> <strong class="px-1 sitename">FitHome</strong> <span>All Rights Reserved</span></p>
+                
+                <div class="admin-portal-link mt-2">
+                    <a href="AdminLogin.aspx" class="text-decoration-none" style="color: rgba(255, 255, 255, 0.5); font-size: 0.85rem; transition: color 0.3s;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='rgba(255, 255, 255, 0.5)'">
+                        <i class="bi bi-shield-lock me-1"></i> Authorized Admin Access
+                    </a>
+                </div>
             </div>
         </footer>
 
