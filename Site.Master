@@ -10,7 +10,7 @@
     <link href="assets/img/logo.png" rel="icon">
     
     <link href="https://fonts.googleapis.com" rel="preconnect">
-    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="crossrogin">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -29,20 +29,39 @@
         
         <header id="header" class="header d-flex align-items-center sticky-top">
             <div class="container-fluid container-xl position-relative d-flex align-items-center">
+                
                 <a href="Default.aspx" class="logo d-flex align-items-center me-auto">
                     <h1 class="sitename">FitHome</h1>
                 </a>
+
+                <div class="header-profile d-flex align-items-center me-3 me-xl-4 pe-3 border-end border-secondary-subtle">
+                    
+                    <asp:Panel ID="pnlGuest" runat="server" Visible="true">
+                        <a href="Login.aspx" class="d-flex align-items-center text-decoration-none" title="Login">
+                            <i class="bi bi-person-circle fs-2 text-secondary"></i>
+                            <span class="ms-2 fw-bold text-secondary d-none d-sm-block">Guest</span>
+                        </a>
+                    </asp:Panel>
+
+                    <asp:Panel ID="pnlLoggedIn" runat="server" Visible="false">
+                        <a href="UserDashboard.aspx" class="d-flex align-items-center text-decoration-none" title="Go to Dashboard">
+                            <img src="assets/img/profiles/defaultUser.png" alt="Profile" id="imgProfilePic" runat="server" class="rounded-circle border" style="width: 40px; height: 40px; object-fit: cover;" />
+                            <span class="ms-2 fw-bold text-dark d-none d-md-block" id="lblUserName" runat="server">Username</span>
+                        </a>
+                    </asp:Panel>
+
+                </div>
 
                 <nav id="navmenu" class="navmenu">
                     <ul>
                         <li><a href="Default.aspx" class="active">Home</a></li>
                         <li><a href="About.aspx">About</a></li>
                         <li><a href="CourseCatalog.aspx">Courses</a></li> 
-                        <li><a href="Login.aspx">Login</a></li>
                     </ul>
                     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
                 </nav>
-                &nbsp;</div>
+
+            </div>
         </header>
 
         <div>
@@ -58,7 +77,6 @@
                             <span class="sitename">FitHome</span>
                         </a>
                         <p>FitHome Academy - Your partner in home fitness.</p>
-
                     </div>
                 </div>
             </div>
@@ -74,7 +92,9 @@
             </div>
         </footer>
 
-    </form> <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    </form> 
+
+    <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
     <div id="preloader"></div>
 
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -82,6 +102,7 @@
     <script src="assets/vendor/aos/aos.js"></script>
     <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
     <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+    
     <script src="assets/js/main.js"></script>
 </body>
 </html>

@@ -1,34 +1,38 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Configuration;
+using System.Web.UI.WebControls;
 
 namespace FitHome
 {
     public partial class TrainingHistory : System.Web.UI.Page
     {
-        // Grabs the connection string from your Web.config file using your leader's exact name
+        // Retrieve connection string from Web.config
         string connString = ConfigurationManager.ConnectionStrings["FitHomeDB"]?.ConnectionString;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                // Check if user is authenticated; if not, redirect to Login page
+                if (Session["UserID"] == null)
+                {
+                    Response.Redirect("Login.aspx");
+                    return;
+                }
+
+                // Load the workout history grid on first page load
                 BindGrid();
             }
         }
 
+        // Fetch workout records and bind them to the GridView
         private void BindGrid()
         {
-            // Simulate User Session (Hardcoded for now, switch to Session["UserID"] later)
-            int currentUserId = 1;
+            // Use the current authenticated UserID from the session
+            string currentUserId = Session["UserID"].ToString();
 
-            // SQL Query to get the user's completed courses
             string query = @"SELECT up.ProgressID, c.Title, c.Category, up.DateCompleted 
                              FROM UserProgress up 
                              INNER JOIN Courses c ON up.CourseID = c.CourseID 
@@ -44,22 +48,28 @@ namespace FitHome
                     {
                         DataTable dt = new DataTable();
                         sda.Fill(dt);
+
+                        // Bind the data to the GridView control
                         gvTrainingHistory.DataSource = dt;
                         gvTrainingHistory.DataBind();
+
+                        // Calculate and display the total number of workouts in the stats card
+                        lblTotalWorkouts.Text = dt.Rows.Count.ToString();
                     }
                 }
             }
         }
 
+        // Handle the deletion of a specific workout record
         protected void gvTrainingHistory_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             try
             {
-                // Get the ProgressID of the row that was clicked
+                // Retrieve the unique ID of the record to be deleted
                 int progressId = Convert.ToInt32(gvTrainingHistory.DataKeys[e.RowIndex].Value);
-                int currentUserId = 1; // Replace with session ID later
+                string currentUserId = Session["UserID"].ToString();
 
-                // SQL Query to delete the specific training record
+                // Ensure the user can only delete their own records for security
                 string query = "DELETE FROM UserProgress WHERE ProgressID = @ProgressID AND UserID = @UserID";
 
                 using (SqlConnection conn = new SqlConnection(connString))
@@ -74,15 +84,17 @@ namespace FitHome
                     }
                 }
 
-                lblStatus.Text = "✅ Workout record deleted successfully!";
+                // Update UI feedback for a successful deletion
+                lblStatus.Text = "Workout record removed successfully.";
                 lblStatus.CssClass = "fw-bold d-block mb-3 text-center text-success";
 
-                // Refresh the grid to show the updated list after deletion
+                // Refresh the grid and stats to reflect the changes
                 BindGrid();
             }
             catch (Exception ex)
             {
-                lblStatus.Text = "❌ Error deleting record: " + ex.Message;
+                // Display error message if the deletion fails
+                lblStatus.Text = "Error removing record.";
                 lblStatus.CssClass = "fw-bold d-block mb-3 text-center text-danger";
             }
         }

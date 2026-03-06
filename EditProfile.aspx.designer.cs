@@ -15,31 +15,40 @@ namespace FitHome
     {
 
         /// <summary>
-        /// lblStatus control.
+        /// lblMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblStatus;
+        protected global::System.Web.UI.WebControls.Label lblMessage;
 
         /// <summary>
-        /// txtEditWeight control.
+        /// imgProfile control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEditWeight;
+        protected global::System.Web.UI.WebControls.Image imgProfile;
 
         /// <summary>
-        /// txtEditHeight control.
+        /// fileProfilePic control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtEditHeight;
+        protected global::System.Web.UI.WebControls.FileUpload fileProfilePic;
+
+        /// <summary>
+        /// txtUsername control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtUsername;
 
         /// <summary>
         /// txtEmail control.
@@ -51,6 +60,24 @@ namespace FitHome
         protected global::System.Web.UI.WebControls.TextBox txtEmail;
 
         /// <summary>
+        /// txtWeight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtWeight;
+
+        /// <summary>
+        /// txtHeight control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtHeight;
+
+        /// <summary>
         /// txtNewPassword control.
         /// </summary>
         /// <remarks>
@@ -58,6 +85,15 @@ namespace FitHome
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtNewPassword;
+
+        /// <summary>
+        /// txtConfirmPassword control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtConfirmPassword;
 
         /// <summary>
         /// btnSaveChanges control.
