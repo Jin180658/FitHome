@@ -28,7 +28,7 @@
                 Member Login
                 </asp:HyperLink>
 
-            <asp:HyperLink ID="btnBrowse" runat="server" NavigateUrl="~/Courses.aspx" 
+            <asp:HyperLink ID="btnBrowse" runat="server" NavigateUrl="~/CourseCatalog.aspx" 
                 style="padding: 12px 28px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; transition: 0.3s; display: inline-block;">
                 Explore Courses
                 </asp:HyperLink>

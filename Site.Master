@@ -10,7 +10,7 @@
     <link href="assets/img/logo.png" rel="icon">
     
     <link href="https://fonts.googleapis.com" rel="preconnect">
-    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="crossrogin">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
 
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -37,15 +37,12 @@
                     <ul>
                         <li><a href="Default.aspx" class="active">Home</a></li>
                         <li><a href="About.aspx">About</a></li>
-                        <li><a href="Courses.aspx">Courses</a></li> 
-                        <li><a href="#">Instructors</a></li>
-                        <li><a href="#">Pricing</a></li>
+                        <li><a href="CourseCatalog.aspx">Courses</a></li> 
                         <li><a href="Login.aspx">Login</a></li>
                     </ul>
                     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
                 </nav>
-                <a class="btn-getstarted" href="Register.aspx">Enroll Now</a>
-            </div>
+                &nbsp;</div>
         </header>
 
         <div>
@@ -61,12 +58,7 @@
                             <span class="sitename">FitHome</span>
                         </a>
                         <p>FitHome Academy - Your partner in home fitness.</p>
-                        <div class="social-links d-flex mt-4">
-                            <a href=""><i class="bi bi-twitter-x"></i></a>
-                            <a href=""><i class="bi bi-facebook"></i></a>
-                            <a href=""><i class="bi bi-instagram"></i></a>
-                            <a href=""><i class="bi bi-linkedin"></i></a>
-                        </div>
+
                     </div>
                 </div>
             </div>
