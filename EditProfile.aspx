@@ -3,8 +3,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="container mt-5 pt-4 mb-5">
         
+        <div class="row mb-3">
+            <div class="col-12" data-aos="fade-down">
+                <a href="UserDashboard.aspx" class="text-decoration-none text-muted fw-bold hover-primary transition-all">
+                    <i class="bi bi-arrow-left me-1"></i> Back to Dashboard
+                </a>
+            </div>
+        </div>
+
         <div class="row mb-4">
-            <div class="col-12 text-center text-md-start" data-aos="fade-down">
+            <div class="col-12 text-center text-md-start" data-aos="fade-down" data-aos-delay="50">
                 <div class="d-inline-flex align-items-center justify-content-center bg-secondary bg-opacity-10 rounded-circle mb-3" style="width: 60px; height: 60px;">
                     <i class="bi bi-person-gear text-secondary fs-2"></i>
                 </div>
@@ -87,11 +95,22 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-medium text-muted small">New Password</label>
-                                <asp:TextBox ID="txtNewPassword" runat="server" TextMode="Password" placeholder="••••••••" CssClass="form-control bg-light border-0 py-2 px-3"></asp:TextBox>
+                                <div class="input-group bg-light rounded-3 overflow-hidden custom-input-group">
+                                    <asp:TextBox ID="txtNewPassword" runat="server" TextMode="Password" placeholder="••••••••" CssClass="form-control bg-transparent border-0 py-2 px-3 shadow-none"></asp:TextBox>
+                                    <button class="btn btn-light bg-transparent border-0 text-muted px-3 shadow-none toggle-pwd-btn" type="button" onclick="togglePassword('<%= txtNewPassword.ClientID %>', this)">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
                             </div>
+                            
                             <div class="col-md-6 mb-3">
                                 <label class="form-label fw-medium text-muted small">Confirm Password</label>
-                                <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password" placeholder="••••••••" CssClass="form-control bg-light border-0 py-2 px-3"></asp:TextBox>
+                                <div class="input-group bg-light rounded-3 overflow-hidden custom-input-group">
+                                    <asp:TextBox ID="txtConfirmPassword" runat="server" TextMode="Password" placeholder="••••••••" CssClass="form-control bg-transparent border-0 py-2 px-3 shadow-none"></asp:TextBox>
+                                    <button class="btn btn-light bg-transparent border-0 text-muted px-3 shadow-none toggle-pwd-btn" type="button" onclick="togglePassword('<%= txtConfirmPassword.ClientID %>', this)">
+                                        <i class="bi bi-eye"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <p class="text-muted small mb-0 mt-2"><i class="bi bi-info-circle me-1"></i> Leave blank to keep your current password.</p>
@@ -110,14 +129,17 @@
     <style>
         .profile-img { width: 140px; height: 140px; object-fit: cover; }
         
-        /* Smooth transitions for input fields to improve user experience */
         .form-control { transition: all 0.2s ease; }
         .form-control:focus { background-color: #fff !important; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .border-start-success { border-left: 4px solid #198754 !important; }
+        
+        .custom-input-group:focus-within { background-color: #fff !important; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .toggle-pwd-btn:hover { color: #0d6efd !important; }
+
+        .transition-all { transition: all 0.2s ease; }
+        .hover-primary:hover { color: #0d6efd !important; transform: translateX(-5px); display: inline-block; }
     </style>
 
     <script>
-        // Provides a real-time local preview of the selected profile image
         function previewImage(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
@@ -125,6 +147,21 @@
                     document.getElementById('<%= imgProfile.ClientID %>').src = e.target.result;
                 }
                 reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function togglePassword(inputId, btnElement) {
+            var inputField = document.getElementById(inputId);
+            var icon = btnElement.querySelector("i");
+
+            if (inputField.type === "password") {
+                inputField.type = "text";
+                icon.classList.remove("bi-eye");
+                icon.classList.add("bi-eye-slash");
+            } else {
+                inputField.type = "password";
+                icon.classList.remove("bi-eye-slash");
+                icon.classList.add("bi-eye");
             }
         }
     </script>
