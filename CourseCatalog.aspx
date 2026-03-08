@@ -7,11 +7,10 @@
 
 <asp:Content ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-<!-- Hero Section -->
 <section class="course-hero">
     <div class="container text-center text-white">
         <h1 class="fw-bold mb-3 hero-title" data-aos="fade-down">
-            📚 Explore Our Courses! 💪
+            Explore Our Courses!
         </h1>
         <p class="lead mb-4 hero-subtitle" data-aos="fade-up">
             Learn new skills with structured, high-quality video courses
@@ -21,14 +20,12 @@
 
 <div class="container mt-5 pt-5">
 
-    <!-- My Favorites（After login will display） -->
     <asp:Panel ID="pnlMyFavorites" runat="server" Visible="false" CssClass="text-center mb-4">
         <a href="MyFavorites.aspx" class="btn btn-warning btn-lg">
-            ⭐ My Favorite Courses
+            My Favorite Courses
         </a>
     </asp:Panel>
 
-    <!-- Search & Filter -->
     <div class="row mb-4">
         <div class="col-md-6 mb-2">
             <asp:TextBox ID="txtSearch" runat="server"
@@ -53,37 +50,44 @@
         </div>
     </div>
 
-    <!-- Featured Courses -->
-    <h2 class="fw-bold mb-4">🔥 Featured Courses</h2>
-    <asp:Repeater ID="rptFeatured" runat="server">
-        <ItemTemplate>
-            <div class="featured-card mb-4 course-card-hover" data-aos="zoom-in">
-                <div class="row g-0 align-items-center">
-                    <div class="col-md-5">
-                        <img src="assets/img/<%# Eval("Thumbnail") %>" class="img-fluid rounded-start" />
-                    </div>
-                    <div class="col-md-7 p-4">
-                        <span class="badge bg-warning text-dark mb-2">FEATURED</span>
-                        <h3 class="fw-bold"><%# Eval("Title") %></h3>
-                        <p class="text-muted"><%# Eval("Description") %></p>
-                        <a href='<%# GetCourseLink(Eval("CourseID")) %>' class="btn btn-primary mt-2">
-                            Start Learning
-                        </a>
+    <asp:Panel ID="pnlFeatured" runat="server">
+        <h2 class="fw-bold mb-4">Featured Courses</h2>
+        
+        <asp:Repeater ID="rptFeatured" runat="server">
+            <ItemTemplate>
+                <div class="featured-card mb-4 course-card-hover" data-aos="zoom-in">
+                    <div class="row g-0 align-items-center">
+                        <div class="col-md-5">
+                            <img src='<%# ResolveUrl("~/assets/img/courses/" + Eval("Thumbnail")) %>' class="img-fluid rounded-start featured-img" alt="Course Thumbnail" />
+                        </div>
+                        <div class="col-md-7 p-4">
+                            <span class="badge bg-warning text-dark mb-2">FEATURED</span>
+                            <h3 class="fw-bold"><%# Eval("Title") %></h3>
+                            <p class="text-muted"><%# Eval("Description") %></p>
+                            <a href='<%# GetCourseLink(Eval("CourseID")) %>' class="btn btn-primary mt-2">
+                                Start Learning
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </ItemTemplate>
-    </asp:Repeater>
+            </ItemTemplate>
+        </asp:Repeater>
+    </asp:Panel>
 
-    <!-- All Courses -->
-    <h2 class="fw-bold mt-5 mb-4">📚 All Courses</h2>
+    <h2 id="lblAllCoursesTitle" runat="server" class="fw-bold mt-5 mb-4">All Courses</h2>
+
+    <asp:Panel ID="pnlNoResults" runat="server" Visible="false" CssClass="text-center mt-5 mb-5" data-aos="fade-up">
+        <h3 class="text-muted">Oops! No courses found.</h3>
+        <p class="text-muted">Try using different keywords or selecting a different category.</p>
+    </asp:Panel>
+
     <div class="row">
         <asp:Repeater ID="rptCourses" runat="server">
             <ItemTemplate>
                 <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up">
                     <div class="course-card h-100 course-card-hover">
                         <div class="course-img">
-                            <img src="assets/img/<%# Eval("Thumbnail") %>" />
+                            <img src='<%# ResolveUrl("~/assets/img/courses/" + Eval("Thumbnail")) %>' alt="Course Image" />
                             <span class="course-category"><%# Eval("Category") %></span>
                         </div>
                         <div class="course-body">
@@ -106,7 +110,6 @@
 
 </div>
 
-<!-- CSS -->
 <style>
 .course-hero {
     background: linear-gradient(135deg, #4facfe, #00f2fe);
@@ -134,6 +137,13 @@
     padding: 5px 12px; font-size: 12px; border-radius: 20px;
 }
 .course-body { padding: 20px; }
+
+/* Ensure all featured images have the same height and don't stretch */
+.featured-img {
+    height: 250px;
+    object-fit: cover;
+    width: 100%;
+}
 </style>
 
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
