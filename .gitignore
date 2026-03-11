@@ -417,6 +417,4 @@ FodyWeavers.xsd
 *.msm
 *.msp
 
-# Windows Installer files from build outputs
-App_Data/*.mdf
-App_Data/*.ldf
+
