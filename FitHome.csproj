@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="AdminDashboard.aspx" />
     <Content Include="AdminLogin.aspx" />
+    <Content Include="AdminManageQuiz.aspx" />
     <Content Include="App_Data\FitHomeDB.mdf" />
     <Content Include="App_Data\FitHomeDB_log.ldf">
       <DependentUpon>FitHomeDB.mdf</DependentUpon>
@@ -125,6 +126,7 @@
     <Content Include="ManageUsers.aspx" />
     <Content Include="MyFavorites.aspx" />
     <Content Include="Register.aspx" />
+    <Content Include="TakeQuiz.aspx" />
     <Content Include="TrainingHistory.aspx" />
     <Content Include="UserDashboard.aspx" />
     <Content Include="Web.config" />
@@ -150,6 +152,13 @@
     </Compile>
     <Compile Include="AdminLogin.aspx.designer.cs">
       <DependentUpon>AdminLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdminManageQuiz.aspx.cs">
+      <DependentUpon>AdminManageQuiz.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminManageQuiz.aspx.designer.cs">
+      <DependentUpon>AdminManageQuiz.aspx</DependentUpon>
     </Compile>
     <Compile Include="BMICalculator.aspx.cs">
       <DependentUpon>BMICalculator.aspx</DependentUpon>
@@ -238,6 +247,13 @@
     </Compile>
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="TakeQuiz.aspx.cs">
+      <DependentUpon>TakeQuiz.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="TakeQuiz.aspx.designer.cs">
+      <DependentUpon>TakeQuiz.aspx</DependentUpon>
     </Compile>
     <Compile Include="TrainingHistory.aspx.cs">
       <DependentUpon>TrainingHistory.aspx</DependentUpon>

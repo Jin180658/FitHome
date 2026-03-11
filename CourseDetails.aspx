@@ -37,7 +37,7 @@
 
     <% if (Session["UserID"] == null) { %>
         <div class="alert alert-info text-center mt-3 mb-4 border-0 shadow-sm">
-            <i class="fas fa-lock me-2"></i> 
+            <i class="bi bi-lock-fill me-2"></i> 
             <strong>Members Only!</strong> Please login or register to watch the full video and track your progress.
         </div>
     <% } %>
@@ -49,16 +49,41 @@
         
     <asp:Button ID="btnComplete" runat="server"
         Text="Complete"
-        CssClass="btn btn-primary w-100 mb-3 py-2 fw-bold"
+        CssClass="btn btn-primary w-100 mb-4 py-2 fw-bold"
         Visible="false"
         OnClick="btnComplete_Click" />
 
+    <asp:Panel ID="pnlAssessment" runat="server" Visible="false" CssClass="mb-4">
+        <div class="card border-0 shadow-sm rounded-4" style="background: linear-gradient(135deg, #fff3cd 0%, #fff 100%);">
+            <div class="row g-0 align-items-center">
+                <div class="col-md-8 p-4">
+                    <h4 class="fw-bold text-dark mb-2">
+                        <i class="bi bi-patch-question-fill text-warning me-2"></i>Test Your Knowledge
+                    </h4>
+                    <p class="text-muted mb-0">
+                        Finished the training? Take the official assessment to earn your score!
+                    </p>
+                </div>
+                <div class="col-md-4 p-4 text-md-end border-start-md">
+                    <asp:HyperLink ID="hlTakeQuiz" runat="server" CssClass="btn btn-warning fw-bold shadow-sm px-4 rounded-pill">
+                        Take Quiz <i class="bi bi-arrow-right ms-1"></i>
+                    </asp:HyperLink>
+                </div>
+            </div>
+        </div>
+    </asp:Panel>
     <a href="CourseCatalog.aspx" class="btn btn-secondary w-100 py-2 fw-bold">Back to Courses</a>
+
 </div>
 
 <style>
 /* CSS to ensure iframe and local videos are responsive and fit the container */
 .video-wrapper iframe,
 .video-wrapper video { width: 100%; height: 450px; }
+
+/* Desktop view line separator for Assessment Card */
+@media (min-width: 768px) {
+    .border-start-md { border-left: 1px solid rgba(0,0,0,0.1); }
+}
 </style>
 </asp:Content>

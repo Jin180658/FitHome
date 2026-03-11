@@ -26,6 +26,9 @@ namespace FitHome
                 LoadCourse();
                 SetupInitialUI();
                 RestoreTrainingState();
+
+                // --- NEW FEATURE: Check if there's a quiz for this course ---
+                CheckCourseAssessment();
             }
         }
 
@@ -193,6 +196,35 @@ namespace FitHome
             Session.Remove(key);
             btnComplete.Text = "Completed";
             btnComplete.Enabled = false;
+        }
+
+        // --- NEW FEATURE: Method to check if the current course has a quiz ---
+        private void CheckCourseAssessment()
+        {
+            using (SqlConnection con = new SqlConnection(cs))
+            {
+                // Query the database to see if the Admin has added any questions for this specific course
+                string quizQuery = "SELECT COUNT(*) FROM QuizQuestions WHERE CourseID = @CourseID";
+                using (SqlCommand cmd = new SqlCommand(quizQuery, con))
+                {
+                    cmd.Parameters.AddWithValue("@CourseID", courseId);
+                    con.Open();
+                    int questionCount = Convert.ToInt32(cmd.ExecuteScalar());
+
+                    // If questions exist, show the assessment CTA panel and set the navigation URL
+                    if (questionCount > 0)
+                    {
+                        pnlAssessment.Visible = true;
+                        // Dynamically append the course ID so TakeQuiz.aspx knows which quiz to load
+                        hlTakeQuiz.NavigateUrl = "~/TakeQuiz.aspx?courseId=" + courseId;
+                    }
+                    else
+                    {
+                        // If no questions have been added by the admin, hide the assessment panel completely
+                        pnlAssessment.Visible = false;
+                    }
+                }
+            }
         }
     }
 }
