@@ -14,7 +14,7 @@
         </div>
 
         <div class="row justify-content-center">
-            <div class="col-lg-8" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-lg-10" data-aos="fade-up" data-aos-delay="100">
                 
                 <div class="card shadow-sm border-0 rounded-4 mb-4 bg-light">
                     <div class="card-body p-3 d-flex justify-content-around text-center">
@@ -47,6 +47,12 @@
                                     <asp:BoundField DataField="Category" HeaderText="Category" ItemStyle-CssClass="text-muted" />
                                     <asp:BoundField DataField="DateCompleted" HeaderText="Completed On" DataFormatString="{0:MMM dd, yyyy}" ItemStyle-CssClass="text-muted" />
                                     
+                                    <asp:TemplateField HeaderText="Assessment" ItemStyle-CssClass="text-center">
+                                        <ItemTemplate>
+                                            <%# GetScoreHtml(Eval("BestScore"), Eval("QuizQuestionCount"), Eval("CourseID"), Eval("ProgressID")) %>
+                                        </ItemTemplate>
+                                    </asp:TemplateField>
+
                                     <asp:TemplateField ItemStyle-CssClass="text-end">
                                         <ItemTemplate>
                                             <asp:LinkButton ID="btnDelete" runat="server" CommandName="Delete" 

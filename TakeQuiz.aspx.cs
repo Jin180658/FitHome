@@ -140,20 +140,25 @@ namespace FitHome
         }
 
         // Insert the score into the QuizResults table
+        // Insert the score into the QuizResults table
         private void SaveResultToDatabase(int score, int totalQuestions)
         {
             int courseId = Convert.ToInt32(Request.QueryString["courseId"]);
+            // --- NEW: Retrieve the specific ProgressID from the URL ---
+            int progressId = Convert.ToInt32(Request.QueryString["progressId"]);
             int userId = Convert.ToInt32(Session["UserID"]);
 
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string query = @"INSERT INTO QuizResults (UserID, CourseID, Score, TotalQuestions, AttemptDate) 
-                                 VALUES (@UserID, @CourseID, @Score, @TotalQuestions, GETDATE())";
+                // Note the addition of ProgressID
+                string query = @"INSERT INTO QuizResults (UserID, CourseID, ProgressID, Score, TotalQuestions, AttemptDate) 
+                                 VALUES (@UserID, @CourseID, @ProgressID, @Score, @TotalQuestions, GETDATE())";
 
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@UserID", userId);
                     cmd.Parameters.AddWithValue("@CourseID", courseId);
+                    cmd.Parameters.AddWithValue("@ProgressID", progressId);
                     cmd.Parameters.AddWithValue("@Score", score);
                     cmd.Parameters.AddWithValue("@TotalQuestions", totalQuestions);
 

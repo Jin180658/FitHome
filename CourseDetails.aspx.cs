@@ -27,8 +27,6 @@ namespace FitHome
                 SetupInitialUI();
                 RestoreTrainingState();
 
-                // --- NEW FEATURE: Check if there's a quiz for this course ---
-                CheckCourseAssessment();
             }
         }
 
@@ -177,54 +175,59 @@ namespace FitHome
         }
 
         // Handle the Complete Course event and insert the progress record into the database
+        // Handle the Complete Course event and insert the progress record into the database
         protected void btnComplete_Click(object sender, EventArgs e)
         {
             string key = $"TRAINING_{userId}_{courseId}";
             if (Session[key] == null) return;
 
+            int newProgressId = 0; // To store the newly generated progress ID
+
             using (SqlConnection con = new SqlConnection(cs))
             {
-                string q = @"INSERT INTO UserProgress (UserID, CourseID, DateCompleted) VALUES (@u,@c,GETDATE())";
+                // --- NEW: Use OUTPUT INSERTED to get the auto-generated ID immediately ---
+                string q = @"INSERT INTO UserProgress (UserID, CourseID, DateCompleted) 
+                             OUTPUT INSERTED.ProgressID 
+                             VALUES (@u,@c,GETDATE())";
                 SqlCommand cmd = new SqlCommand(q, con);
                 cmd.Parameters.AddWithValue("@u", userId);
                 cmd.Parameters.AddWithValue("@c", courseId);
                 con.Open();
-                cmd.ExecuteNonQuery();
+
+                // Grab the ID of the completed record
+                newProgressId = (int)cmd.ExecuteScalar();
             }
 
-            // Remove the active training session flag and disable the button
             Session.Remove(key);
             btnComplete.Text = "Completed";
             btnComplete.Enabled = false;
+
+            // --- UX Optimization: Only show the Assessment CTA AFTER they click complete ---
+            if (CheckIfCourseHasQuiz(courseId))
+            {
+                pnlAssessment.Visible = true;
+                // Bind the URL dynamically with the exact ProgressID!
+                hlTakeQuiz.NavigateUrl = $"~/TakeQuiz.aspx?courseId={courseId}&progressId={newProgressId}";
+            }
         }
 
-        // --- NEW FEATURE: Method to check if the current course has a quiz ---
-        private void CheckCourseAssessment()
+        // --- Helper Method to check if quiz questions exist ---
+        private bool CheckIfCourseHasQuiz(int cId)
         {
             using (SqlConnection con = new SqlConnection(cs))
             {
-                // Query the database to see if the Admin has added any questions for this specific course
                 string quizQuery = "SELECT COUNT(*) FROM QuizQuestions WHERE CourseID = @CourseID";
                 using (SqlCommand cmd = new SqlCommand(quizQuery, con))
                 {
-                    cmd.Parameters.AddWithValue("@CourseID", courseId);
+                    cmd.Parameters.AddWithValue("@CourseID", cId);
                     con.Open();
-                    int questionCount = Convert.ToInt32(cmd.ExecuteScalar());
-
-                    // If questions exist, show the assessment CTA panel and set the navigation URL
-                    if (questionCount > 0)
-                    {
-                        pnlAssessment.Visible = true;
-                        // Dynamically append the course ID so TakeQuiz.aspx knows which quiz to load
-                        hlTakeQuiz.NavigateUrl = "~/TakeQuiz.aspx?courseId=" + courseId;
-                    }
-                    else
-                    {
-                        // If no questions have been added by the admin, hide the assessment panel completely
-                        pnlAssessment.Visible = false;
-                    }
+                    int count = Convert.ToInt32(cmd.ExecuteScalar());
+                    return count > 0;
                 }
             }
         }
+
+        // We can safely remove the old CheckCourseAssessment() method from Page_Load
+        // as the CTA should strictly appear post-completion.
     }
 }

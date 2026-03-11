@@ -33,7 +33,9 @@ namespace FitHome
             // Use the current authenticated UserID from the session
             string currentUserId = Session["UserID"].ToString();
 
-            string query = @"SELECT up.ProgressID, c.Title, c.Category, up.DateCompleted 
+            string query = @"SELECT up.ProgressID, c.CourseID, c.Title, c.Category, up.DateCompleted,
+                                    (SELECT MAX(Score) FROM QuizResults qr WHERE qr.ProgressID = up.ProgressID) AS BestScore,
+                                    (SELECT COUNT(*) FROM QuizQuestions qq WHERE qq.CourseID = up.CourseID) AS QuizQuestionCount
                              FROM UserProgress up 
                              INNER JOIN Courses c ON up.CourseID = c.CourseID 
                              WHERE up.UserID = @UserID 
@@ -48,12 +50,8 @@ namespace FitHome
                     {
                         DataTable dt = new DataTable();
                         sda.Fill(dt);
-
-                        // Bind the data to the GridView control
                         gvTrainingHistory.DataSource = dt;
                         gvTrainingHistory.DataBind();
-
-                        // Calculate and display the total number of workouts in the stats card
                         lblTotalWorkouts.Text = dt.Rows.Count.ToString();
                     }
                 }
@@ -65,38 +63,56 @@ namespace FitHome
         {
             try
             {
-                // Retrieve the unique ID of the record to be deleted
                 int progressId = Convert.ToInt32(gvTrainingHistory.DataKeys[e.RowIndex].Value);
                 string currentUserId = Session["UserID"].ToString();
 
-                // Ensure the user can only delete their own records for security
-                string query = "DELETE FROM UserProgress WHERE ProgressID = @ProgressID AND UserID = @UserID";
-
                 using (SqlConnection conn = new SqlConnection(connString))
                 {
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    conn.Open();
+                    string deleteQuizQuery = "DELETE FROM QuizResults WHERE ProgressID = @ProgressID";
+                    using (SqlCommand cmdQuiz = new SqlCommand(deleteQuizQuery, conn))
                     {
-                        cmd.Parameters.AddWithValue("@ProgressID", progressId);
-                        cmd.Parameters.AddWithValue("@UserID", currentUserId);
+                        cmdQuiz.Parameters.AddWithValue("@ProgressID", progressId);
+                        cmdQuiz.ExecuteNonQuery();
+                    }
 
-                        conn.Open();
-                        cmd.ExecuteNonQuery();
+                    string deleteProgressQuery = "DELETE FROM UserProgress WHERE ProgressID = @ProgressID AND UserID = @UserID";
+                    using (SqlCommand cmdProg = new SqlCommand(deleteProgressQuery, conn))
+                    {
+                        cmdProg.Parameters.AddWithValue("@ProgressID", progressId);
+                        cmdProg.Parameters.AddWithValue("@UserID", currentUserId);
+                        cmdProg.ExecuteNonQuery();
                     }
                 }
 
-                // Update UI feedback for a successful deletion
-                lblStatus.Text = "Workout record removed successfully.";
+                lblStatus.Text = "Workout record and associated quiz results removed successfully.";
                 lblStatus.CssClass = "fw-bold d-block mb-3 text-center text-success";
-
-                // Refresh the grid and stats to reflect the changes
                 BindGrid();
             }
             catch (Exception ex)
             {
-                // Display error message if the deletion fails
                 lblStatus.Text = "Error removing record.";
                 lblStatus.CssClass = "fw-bold d-block mb-3 text-center text-danger";
             }
+        }
+
+        // --- NEW FEATURE: Dynamic HTML generator for Assessment Score ---
+        protected string GetScoreHtml(object bestScoreObj, object quizQuestionCountObj, object courseIdObj, object progressIdObj)
+        {
+            int questionCount = Convert.ToInt32(quizQuestionCountObj);
+            if (questionCount == 0) return "<span class='text-muted small'>N/A</span>";
+
+            if (bestScoreObj == DBNull.Value || bestScoreObj == null)
+            {
+                // Pass both CourseID and ProgressID to TakeQuiz.aspx
+                return $"<a href='TakeQuiz.aspx?courseId={courseIdObj}&progressId={progressIdObj}' class='btn btn-sm btn-warning text-dark fw-bold rounded-pill px-3 py-1 shadow-sm' style='font-size:0.75rem;'><i class='bi bi-patch-exclamation me-1'></i>Take Quiz</a>";
+            }
+
+            int bestScore = Convert.ToInt32(bestScoreObj);
+            double percentage = (double)bestScore / questionCount;
+            string colorClass = percentage >= 0.5 ? "text-success bg-success border-success" : "text-danger bg-danger border-danger";
+
+            return $"<span class='badge {colorClass} bg-opacity-10 border px-3 py-2 rounded-pill fw-bold' style='font-size:0.85rem;'><i class='bi bi-trophy-fill text-warning me-1'></i> {bestScore} / {questionCount}</span>";
         }
     }
 }
