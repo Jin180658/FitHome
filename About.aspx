@@ -81,8 +81,7 @@ body{
 /* Member Card */
 .member{
     background:white;
-    width:250px; /* 卡片稍微宽一点 */
-    padding:30px;
+    width:250px; 
     border-radius:12px;
     box-shadow:0 6px 15px rgba(0,0,0,0.08);
     text-align:center;
@@ -94,7 +93,7 @@ body{
     box-shadow:0 10px 22px rgba(0,0,0,0.15);
 }
 
-/* 成员头像改大 */
+
 .member img{
     width:180px;
     height:180px;
@@ -105,7 +104,7 @@ body{
 }
 
 .member-name{
-    font-size:20px; /* 名字也稍微大一点 */
+    font-size:20px; 
     font-weight:bold;
     color:#333;
     margin-bottom:6px;
