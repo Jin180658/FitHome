@@ -14,7 +14,8 @@ CREATE TABLE QuizQuestions (
 CREATE TABLE QuizResults (
     ResultID INT IDENTITY(1,1) PRIMARY KEY,
     UserID INT NOT NULL FOREIGN KEY REFERENCES Users(UserID),       
-    CourseID INT NOT NULL FOREIGN KEY REFERENCES Courses(CourseID), 
+    CourseID INT NOT NULL FOREIGN KEY REFERENCES Courses(CourseID),
+    ProgressID INT,
     Score INT NOT NULL,                                             
     TotalQuestions INT NOT NULL,                                    
     AttemptDate DATETIME DEFAULT GETDATE()                          
