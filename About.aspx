@@ -81,8 +81,8 @@ body{
 /* Member Card */
 .member{
     background:white;
-    width:220px;
-    padding:25px;
+    width:250px; /* 卡片稍微宽一点 */
+    padding:30px;
     border-radius:12px;
     box-shadow:0 6px 15px rgba(0,0,0,0.08);
     text-align:center;
@@ -94,20 +94,21 @@ body{
     box-shadow:0 10px 22px rgba(0,0,0,0.15);
 }
 
+/* 成员头像改大 */
 .member img{
-    width:130px;
-    height:130px;
+    width:180px;
+    height:180px;
     border-radius:50%;
     object-fit:cover;
     border:4px solid #eee;
-    margin-bottom:12px;
+    margin-bottom:15px;
 }
 
 .member-name{
-    font-size:18px;
+    font-size:20px; /* 名字也稍微大一点 */
     font-weight:bold;
     color:#333;
-    margin-bottom:4px;
+    margin-bottom:6px;
 }
 </style>
 
