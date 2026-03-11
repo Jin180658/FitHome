@@ -20,12 +20,6 @@
 
 <div class="container mt-5 pt-5">
 
-    <asp:Panel ID="pnlMyFavorites" runat="server" Visible="false" CssClass="text-center mb-4">
-        <a href="MyFavorites.aspx" class="btn btn-warning btn-lg">
-            My Favorite Courses
-        </a>
-    </asp:Panel>
-
     <div class="row mb-4">
         <div class="col-md-6 mb-2">
             <asp:TextBox ID="txtSearch" runat="server"
@@ -60,13 +54,17 @@
                         <div class="col-md-5">
                             <img src='<%# ResolveUrl("~/assets/img/courses/" + Eval("Thumbnail")) %>' class="img-fluid rounded-start featured-img" alt="Course Thumbnail" />
                         </div>
-                        <div class="col-md-7 p-4">
-                            <span class="badge bg-warning text-dark mb-2">FEATURED</span>
-                            <h3 class="fw-bold"><%# Eval("Title") %></h3>
-                            <p class="text-muted"><%# Eval("Description") %></p>
-                            <a href='<%# GetCourseLink(Eval("CourseID")) %>' class="btn btn-primary mt-2">
-                                Start Learning
-                            </a>
+                        <div class="col-md-7 p-4 d-flex flex-column justify-content-center" style="min-height: 250px;">
+                            <div>
+                                <span class="badge bg-warning text-dark mb-2">FEATURED</span>
+                                <h3 class="fw-bold"><%# Eval("Title") %></h3>
+                                <p class="text-muted line-clamp-3 mb-3"><%# Eval("Description") %></p>
+                            </div>
+                            <div class="mt-auto">
+                                <a href='<%# GetCourseLink(Eval("CourseID")) %>' class="btn btn-primary">
+                                    Start Learning
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -85,20 +83,20 @@
         <asp:Repeater ID="rptCourses" runat="server">
             <ItemTemplate>
                 <div class="col-md-6 col-lg-4 mb-4" data-aos="fade-up">
-                    <div class="course-card h-100 course-card-hover">
+                    <div class="course-card h-100 course-card-hover d-flex flex-column">
                         <div class="course-img">
                             <img src='<%# ResolveUrl("~/assets/img/courses/" + Eval("Thumbnail")) %>' alt="Course Image" />
                             <span class="course-category"><%# Eval("Category") %></span>
                         </div>
-                        <div class="course-body">
+                        <div class="course-body d-flex flex-column flex-grow-1">
                             <h5 class="fw-bold"><%# Eval("Title") %></h5>
-                            <p class="text-muted">
-                                <%# Eval("Description").ToString().Length > 90 ?
-                                    Eval("Description").ToString().Substring(0,90) + "..." :
-                                    Eval("Description") %>
+                            
+                            <p class="text-muted line-clamp-3 mb-4">
+                                <%# Eval("Description") %>
                             </p>
+                            
                             <a href='<%# GetCourseLink(Eval("CourseID")) %>'
-                               class="btn btn-outline-primary w-100">
+                               class="btn btn-outline-primary w-100 mt-auto">
                                 View Course
                             </a>
                         </div>
@@ -143,6 +141,15 @@
     height: 250px;
     object-fit: cover;
     width: 100%;
+}
+
+/* Limits the display to a maximum of 3 lines of text; if more are exceeded, display an ellipsis.*/
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 </style>
 

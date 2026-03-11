@@ -57,6 +57,10 @@
                         <li><a href="Default.aspx">Home</a></li>
                         <li><a href="About.aspx">About</a></li>
                         <li><a href="CourseCatalog.aspx">Courses</a></li> 
+
+                        <li id="navFavorites" runat="server" visible="false">
+                            <a href="MyFavorites.aspx">My Favorites</a>
+                        </li>
                     </ul>
                     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
                 </nav>
@@ -105,19 +109,16 @@
     
     <script src="assets/js/main.js"></script>
 
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/js/main.js"></script>
-
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             let currentPath = window.location.pathname.split('/').pop();
             if (currentPath === '') currentPath = 'Default.aspx';
-            
+
             let navLinks = document.querySelectorAll('.navmenu ul li a');
-            
+
             navLinks.forEach(link => {
                 link.classList.remove('active');
-                
+
                 let href = link.getAttribute('href');
                 if (href && href.toLowerCase() === currentPath.toLowerCase()) {
                     link.classList.add('active');
@@ -125,7 +126,6 @@
             });
         });
     </script>
-</body>
-</html>
+    
 </body>
 </html>

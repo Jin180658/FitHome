@@ -15,7 +15,6 @@ namespace FitHome
             if (!IsPostBack)
             {
                 // Display favorites panel only if the user is currently logged in
-                pnlMyFavorites.Visible = Session["UserID"] != null;
                 LoadFeaturedCourses();
                 LoadCourses();
             }

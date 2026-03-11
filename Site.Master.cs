@@ -17,6 +17,9 @@ namespace FitHome
                     pnlGuest.Visible = false;
                     pnlLoggedIn.Visible = true;
 
+                    // --- NEW: Show "My Favorites" in the navigation bar for logged-in users ---
+                    navFavorites.Visible = true;
+
                     // Update the UI with the current user's name
                     lblUserName.InnerText = Session["UserName"].ToString();
 
@@ -61,6 +64,9 @@ namespace FitHome
                     // User is a guest: show login/register options and hide profile info
                     pnlGuest.Visible = true;
                     pnlLoggedIn.Visible = false;
+
+                    // --- NEW: Hide "My Favorites" in the navigation bar for guests ---
+                    navFavorites.Visible = false;
                 }
             }
         }
