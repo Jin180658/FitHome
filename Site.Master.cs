@@ -17,6 +17,8 @@ namespace FitHome
                     pnlGuest.Visible = false;
                     pnlLoggedIn.Visible = true;
 
+                    navForum.Visible = true;
+
                     // --- NEW: Show "My Favorites" in the navigation bar for logged-in users ---
                     navFavorites.Visible = true;
 
@@ -66,6 +68,7 @@ namespace FitHome
                     pnlLoggedIn.Visible = false;
 
                     // --- NEW: Hide "My Favorites" in the navigation bar for guests ---
+                    navForum.Visible = false;
                     navFavorites.Visible = false;
                 }
             }

@@ -116,11 +116,14 @@
     <Content Include="assets\vendor\swiper\swiper-bundle.min.css" />
     <Content Include="assets\vendor\swiper\swiper-bundle.min.js" />
     <Content Include="BMICalculator.aspx" />
+    <Content Include="CommunityBoard.aspx" />
     <Content Include="CourseCatalog.aspx" />
     <Content Include="CourseDetails.aspx" />
+    <Content Include="CreateTopic.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="EditProfile.aspx" />
     <Content Include="ForgotPassword.aspx" />
+    <Content Include="ForumThread.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login.aspx" />
     <Content Include="ManageCourses.aspx" />
@@ -175,6 +178,13 @@
     <Compile Include="BMICalculator.aspx.designer.cs">
       <DependentUpon>BMICalculator.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CommunityBoard.aspx.cs">
+      <DependentUpon>CommunityBoard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CommunityBoard.aspx.designer.cs">
+      <DependentUpon>CommunityBoard.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CourseCatalog.aspx.cs">
       <DependentUpon>CourseCatalog.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -188,6 +198,13 @@
     </Compile>
     <Compile Include="CourseDetails.aspx.designer.cs">
       <DependentUpon>CourseDetails.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CreateTopic.aspx.cs">
+      <DependentUpon>CreateTopic.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreateTopic.aspx.designer.cs">
+      <DependentUpon>CreateTopic.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -209,6 +226,13 @@
     </Compile>
     <Compile Include="ForgotPassword.aspx.designer.cs">
       <DependentUpon>ForgotPassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ForumThread.aspx.cs">
+      <DependentUpon>ForumThread.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ForumThread.aspx.designer.cs">
+      <DependentUpon>ForumThread.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

@@ -11,88 +11,106 @@ namespace FitHome
 {
 
 
-    public partial class Site
+    public partial class ForumThread
     {
 
         /// <summary>
-        /// head control.
+        /// lblTopicTitle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
+        protected global::System.Web.UI.WebControls.Label lblTopicTitle;
 
         /// <summary>
-        /// form1 control.
+        /// imgAuthorPic control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.WebControls.Image imgAuthorPic;
 
         /// <summary>
-        /// pnlGuest control.
+        /// lblAuthorName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlGuest;
+        protected global::System.Web.UI.WebControls.Label lblAuthorName;
 
         /// <summary>
-        /// pnlLoggedIn control.
+        /// lblPostDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlLoggedIn;
+        protected global::System.Web.UI.WebControls.Label lblPostDate;
 
         /// <summary>
-        /// imgProfilePic control.
+        /// lblTopicContent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage imgProfilePic;
+        protected global::System.Web.UI.WebControls.Label lblTopicContent;
 
         /// <summary>
-        /// lblUserName control.
+        /// rptReplies control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl lblUserName;
+        protected global::System.Web.UI.WebControls.Repeater rptReplies;
 
         /// <summary>
-        /// navForum control.
+        /// pnlLoginPrompt control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl navForum;
+        protected global::System.Web.UI.WebControls.Panel pnlLoginPrompt;
 
         /// <summary>
-        /// navFavorites control.
+        /// pnlReplyForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl navFavorites;
+        protected global::System.Web.UI.WebControls.Panel pnlReplyForm;
 
         /// <summary>
-        /// ContentPlaceHolder1 control.
+        /// lblReplyError control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
+        protected global::System.Web.UI.WebControls.Label lblReplyError;
+
+        /// <summary>
+        /// txtReplyContent control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtReplyContent;
+
+        /// <summary>
+        /// btnSubmitReply control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSubmitReply;
     }
 }
