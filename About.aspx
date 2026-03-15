@@ -155,12 +155,12 @@ body{
     <div class="team-container">
 
         <div class="member">
-            <img src="assets/img/member1.jpg"/>
+            <img src="assets/img/member1.jpeg"/>
             <div class="member-name">Wong Jin Jie</div>
         </div>
 
         <div class="member">
-            <img src="assets/img/member2.jpg"/>
+            <img src="assets/img/member2.jpeg"/>
             <div class="member-name">Wong Zi Yee</div>
         </div>
 

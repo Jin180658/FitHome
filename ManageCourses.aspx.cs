@@ -66,7 +66,7 @@ namespace FitHome
                 return;
             }
 
-            // ✨ Handle physical image upload
+            // Handle physical image upload
             if (fuThumbnail.HasFile)
             {
                 try
@@ -130,47 +130,64 @@ namespace FitHome
 
         protected void gvCourses_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            // Get ID and Old Thumbnail from DataKeys
+            // Retrieve the ID and the current Thumbnail filename from DataKeys
             int courseID = Convert.ToInt32(gvCourses.DataKeys[e.RowIndex].Values["CourseID"]);
             string oldThumbnail = gvCourses.DataKeys[e.RowIndex].Values["Thumbnail"].ToString();
 
             GridViewRow row = gvCourses.Rows[e.RowIndex];
 
-            // Read standard textboxes
-            string newTitle = (row.Cells[1].Controls[0] as TextBox).Text;
-            string newVideo = (row.Cells[3].Controls[0] as TextBox).Text;
-
-            // ✨ Read from TemplateFields (FindControl)
+            // Use FindControl to access the input fields in the EditItemTemplate
+            TextBox txtEditTitle = row.FindControl("txtEditTitle") as TextBox;
+            TextBox txtEditVideo = row.FindControl("txtEditVideo") as TextBox;
             DropDownList ddlEditCategory = row.FindControl("ddlEditCategory") as DropDownList;
             FileUpload fuEditThumbnail = row.FindControl("fuEditThumbnail") as FileUpload;
 
-            string newCat = ddlEditCategory != null ? ddlEditCategory.SelectedValue : "";
-            string finalThumbnail = oldThumbnail; // Default to keep old image
-
-            // ✨ Handle new image upload during edit
-            if (fuEditThumbnail != null && fuEditThumbnail.HasFile)
+            // Safety check to ensure controls are found
+            if (txtEditTitle != null && txtEditVideo != null && ddlEditCategory != null)
             {
-                string fileName = DateTime.Now.ToString("yyyyMMddHHmmss_") + Path.GetFileName(fuEditThumbnail.PostedFile.FileName);
-                fuEditThumbnail.SaveAs(Server.MapPath("~/assets/img/courses/") + fileName);
-                finalThumbnail = fileName; // Replace old image name with new one
-            }
+                string newTitle = txtEditTitle.Text.Trim();
+                string newVideo = txtEditVideo.Text.Trim();
+                string newCat = ddlEditCategory.SelectedValue;
+                string finalThumbnail = oldThumbnail; // Keep old image by default
 
-            using (SqlConnection conn = new SqlConnection(connString))
-            {
-                string sql = "UPDATE Courses SET Title=@Title, Category=@Cat, VideoLink=@Video, Thumbnail=@Thumb WHERE CourseID=@ID";
-                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                // Handle new image upload if the admin selects a new file
+                if (fuEditThumbnail != null && fuEditThumbnail.HasFile)
                 {
-                    cmd.Parameters.AddWithValue("@Title", newTitle);
-                    cmd.Parameters.AddWithValue("@Cat", newCat);
-                    cmd.Parameters.AddWithValue("@Video", newVideo);
-                    cmd.Parameters.AddWithValue("@Thumb", finalThumbnail);
-                    cmd.Parameters.AddWithValue("@ID", courseID);
+                    try
+                    {
+                        // Create a unique filename using a timestamp to follow proper file naming conventions
+                        string fileName = DateTime.Now.ToString("yyyyMMddHHmmss_") + Path.GetFileName(fuEditThumbnail.PostedFile.FileName);
+                        string savePath = Server.MapPath("~/assets/img/courses/") + fileName;
+                        fuEditThumbnail.SaveAs(savePath);
+                        finalThumbnail = fileName;
+                    }
+                    catch (Exception ex)
+                    {
+                        lblMessage.Text = "Error uploading image: " + ex.Message;
+                        lblMessage.Visible = true;
+                        return;
+                    }
+                }
 
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
+                // Execute SQL Update operation
+                using (SqlConnection conn = new SqlConnection(connString))
+                {
+                    string sql = "UPDATE Courses SET Title=@Title, Category=@Cat, VideoLink=@Video, Thumbnail=@Thumb WHERE CourseID=@ID";
+                    using (SqlCommand cmd = new SqlCommand(sql, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@Title", newTitle);
+                        cmd.Parameters.AddWithValue("@Cat", newCat);
+                        cmd.Parameters.AddWithValue("@Video", newVideo);
+                        cmd.Parameters.AddWithValue("@Thumb", finalThumbnail);
+                        cmd.Parameters.AddWithValue("@ID", courseID);
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
                 }
             }
 
+            // Exit edit mode and refresh the table
             gvCourses.EditIndex = -1;
             LoadCoursesGrid();
         }

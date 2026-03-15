@@ -195,72 +195,80 @@
         <div class="card-body p-0 bg-white">
             <div class="table-responsive">
                 
-                <asp:GridView ID="gvCourses" runat="server" CssClass="table modern-table w-100" 
-                    AutoGenerateColumns="False" DataKeyNames="CourseID,Thumbnail" GridLines="None"
-                    OnRowEditing="gvCourses_RowEditing" 
-                    OnRowCancelingEdit="gvCourses_RowCancelingEdit" 
-                    OnRowUpdating="gvCourses_RowUpdating" 
-                    OnRowDeleting="gvCourses_RowDeleting">
-                    
-                    <Columns>
-                        <asp:BoundField DataField="CourseID" HeaderText="ID" ReadOnly="True">
-                            <ItemStyle CssClass="fw-bold text-muted text-center" Width="60px" />
-                        </asp:BoundField>
-                        
-                        <asp:TemplateField HeaderText="Thumbnail">
-                            <ItemTemplate>
-                                <img src='<%# ResolveUrl("~/assets/img/courses/" + Eval("Thumbnail")) %>' alt="Course Image" 
-                                     style="width: 140px; height: 85px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);" 
-                                     onerror="this.src='assets/img/logo.webp'" />
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:FileUpload ID="fuEditThumbnail" runat="server" CssClass="form-control form-control-sm mb-1" />
-                                <small class="text-muted d-block mt-1">Leave empty to keep current image</small>
-                            </EditItemTemplate>
-                            <ItemStyle Width="160px" CssClass="text-center" />
-                        </asp:TemplateField>
-
-                        <asp:BoundField DataField="Title" HeaderText="Course Title">
-                            <ItemStyle CssClass="fw-semibold text-dark fs-6" />
-                        </asp:BoundField>
-                        
-                        <asp:TemplateField HeaderText="Category">
-                            <ItemTemplate>
-                                <span class="badge bg-light text-dark border px-3 py-2"><%# Eval("Category") %></span>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:DropDownList ID="ddlEditCategory" runat="server" CssClass="form-select" SelectedValue='<%# Bind("Category") %>'>
-                                    <asp:ListItem Text="Yoga" Value="Yoga"></asp:ListItem>
-                                    <asp:ListItem Text="Cardio" Value="Cardio"></asp:ListItem>
-                                    <asp:ListItem Text="Strength" Value="Strength"></asp:ListItem>
-                                    <asp:ListItem Text="Flexibility" Value="Flexibility"></asp:ListItem>
-                                </asp:DropDownList>
-                            </EditItemTemplate>
-                            <ItemStyle Width="140px" />
-                        </asp:TemplateField>
-
-                        <asp:BoundField DataField="VideoLink" HeaderText="Video Link">
-                            <ItemStyle CssClass="text-primary" />
-                        </asp:BoundField>
-                        
-                        <asp:TemplateField HeaderText="Actions">
-                            <ItemTemplate>
-                                <asp:LinkButton ID="btnEdit" runat="server" CommandName="Edit">Edit</asp:LinkButton>
+            <asp:GridView ID="gvCourses" runat="server" CssClass="table modern-table w-100" 
+                AutoGenerateColumns="False" DataKeyNames="CourseID,Thumbnail" GridLines="None"
+                OnRowEditing="gvCourses_RowEditing" 
+                OnRowCancelingEdit="gvCourses_RowCancelingEdit" 
+                OnRowUpdating="gvCourses_RowUpdating" 
+                OnRowDeleting="gvCourses_RowDeleting">
+    
+                <Columns>
+                    <asp:BoundField DataField="CourseID" HeaderText="ID" ReadOnly="True">
+                        <ItemStyle CssClass="fw-bold text-muted text-center" Width="60px" />
+                    </asp:BoundField>
         
-                                <asp:LinkButton ID="btnDelete" runat="server" CommandName="Delete" 
-                                    OnClientClick="return confirm('🚨 WARNING: Are you sure you want to PERMANENTLY delete this course?\n\nUsers will no longer be able to view or enroll in it.');">
-                                    Delete
-                                </asp:LinkButton>
-                            </ItemTemplate>
-                            <EditItemTemplate>
-                                <asp:LinkButton ID="btnUpdate" runat="server" CommandName="Update">Update</asp:LinkButton>
-                                <asp:LinkButton ID="btnCancel" runat="server" CommandName="Cancel">Cancel</asp:LinkButton>
-                            </EditItemTemplate>
-                            <ItemStyle Width="180px" CssClass="text-center" />
-                        </asp:TemplateField>
-                    </Columns>
-                    
-                </asp:GridView>
+                    <asp:TemplateField HeaderText="Thumbnail">
+                        <ItemTemplate>
+                            <img src='<%# ResolveUrl("~/assets/img/courses/" + Eval("Thumbnail")) %>' alt="Course Image" 
+                                 style="width: 140px; height: 85px; object-fit: cover; border-radius: 8px;" 
+                                 onerror="this.src='assets/img/logo.webp'" />
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:FileUpload ID="fuEditThumbnail" runat="server" CssClass="form-control form-control-sm mb-1" />
+                            <small class="text-muted d-block mt-1">Leave empty to keep current image</small>
+                        </EditItemTemplate>
+                        <ItemStyle Width="160px" CssClass="text-center" />
+                    </asp:TemplateField>
+
+                    <%-- Updated Title Column to TemplateField --%>
+                    <asp:TemplateField HeaderText="Course Title">
+                        <ItemTemplate>
+                            <asp:Label ID="lblTitle" runat="server" Text='<%# Eval("Title") %>' CssClass="fw-semibold text-dark fs-6"></asp:Label>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="txtEditTitle" runat="server" Text='<%# Bind("Title") %>' CssClass="form-control form-control-sm"></asp:TextBox>
+                        </EditItemTemplate>
+                    </asp:TemplateField>
+        
+                    <asp:TemplateField HeaderText="Category">
+                        <ItemTemplate>
+                            <span class="badge bg-light text-dark border px-3 py-2"><%# Eval("Category") %></span>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:DropDownList ID="ddlEditCategory" runat="server" CssClass="form-select" SelectedValue='<%# Bind("Category") %>'>
+                                <asp:ListItem Text="Yoga" Value="Yoga"></asp:ListItem>
+                                <asp:ListItem Text="Cardio" Value="Cardio"></asp:ListItem>
+                                <asp:ListItem Text="Strength" Value="Strength"></asp:ListItem>
+                                <asp:ListItem Text="Flexibility" Value="Flexibility"></asp:ListItem>
+                            </asp:DropDownList>
+                        </EditItemTemplate>
+                        <ItemStyle Width="140px" />
+                    </asp:TemplateField>
+
+                    <%-- Updated Video Link Column to TemplateField --%>
+                    <asp:TemplateField HeaderText="Video Link">
+                        <ItemTemplate>
+                            <asp:Label ID="lblVideo" runat="server" Text='<%# Eval("VideoLink") %>' CssClass="text-primary"></asp:Label>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:TextBox ID="txtEditVideo" runat="server" Text='<%# Bind("VideoLink") %>' CssClass="form-control form-control-sm"></asp:TextBox>
+                        </EditItemTemplate>
+                    </asp:TemplateField>
+        
+                    <asp:TemplateField HeaderText="Actions">
+                        <ItemTemplate>
+                            <asp:LinkButton ID="btnEdit" runat="server" CommandName="Edit">Edit</asp:LinkButton>
+                            <asp:LinkButton ID="btnDelete" runat="server" CommandName="Delete" 
+                                OnClientClick="return confirm('Are you sure you want to delete this course?');">Delete</asp:LinkButton>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <asp:LinkButton ID="btnUpdate" runat="server" CommandName="Update">Update</asp:LinkButton>
+                            <asp:LinkButton ID="btnCancel" runat="server" CommandName="Cancel">Cancel</asp:LinkButton>
+                        </EditItemTemplate>
+                        <ItemStyle Width="180px" CssClass="text-center" />
+                    </asp:TemplateField>
+                </Columns>
+            </asp:GridView>
 
             </div>
         </div>

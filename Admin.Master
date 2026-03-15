@@ -28,7 +28,7 @@
             min-height: 100vh;
         }
 
-        /* 🌟 Left Sidebar Styles */
+        /* Left Sidebar Styles */
         .sidebar {
             width: 260px;
             background-color: var(--fh-navy);
@@ -46,7 +46,7 @@
             margin-bottom: 20px;
         }
         
-        /* ✨ UPGRADED: Added border-radius to make the logo smooth and rounded */
+        /* UPGRADED: Added border-radius to make the logo smooth and rounded */
         .sidebar-header img {
             max-width: 150px;
             margin-bottom: 10px;
@@ -80,7 +80,7 @@
             border-left: 4px solid var(--fh-orange);
         }
 
-        /* ✨ UPGRADED: Logged-in admin info section styles */
+        /* UPGRADED: Logged-in admin info section styles */
         .admin-profile {
             padding: 15px 25px;
             color: rgba(255, 255, 255, 0.6);
@@ -98,7 +98,7 @@
             border-left-color: #ff6b6b !important;
         }
 
-        /* 🌟 Right Main Content Area */
+        /* Right Main Content Area */
         .main-content {
             flex-grow: 1;
             padding: 30px;
@@ -143,6 +143,9 @@
                     </a>
                     <a href="ManageCourses.aspx" class="nav-link text-decoration-none">
                         <i class="fas fa-video"></i> Manage Courses
+                    </a>
+                    <a href="AdminManageQuiz.aspx" class="nav-link text-decoration-none">
+                        <i class="fas fa-tasks"></i> Manage Quizzes
                     </a>
                     <a href="ManageUsers.aspx" class="nav-link text-decoration-none">
                         <i class="fas fa-users"></i> Registered Users
