@@ -154,7 +154,7 @@
                         <asp:ListItem Text="Yoga" Value="Yoga"></asp:ListItem>
                         <asp:ListItem Text="Cardio" Value="Cardio"></asp:ListItem>
                         <asp:ListItem Text="Strength" Value="Strength"></asp:ListItem>
-                        <asp:ListItem Text="Flexibility" Value="Flexibility"></asp:ListItem>
+                        
                     </asp:DropDownList>
                 </div>
 

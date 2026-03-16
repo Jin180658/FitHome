@@ -31,7 +31,7 @@ namespace FitHome
         {
             using (SqlConnection conn = new SqlConnection(connString))
             {
-                // ✨ Upgraded SQL: Use ISNULL to ensure we always have at least 'default.png' string returned
+                // Upgraded SQL: Use ISNULL to ensure we always have at least 'default.png' string returned
                 string sql = "SELECT UserID, Username, Email, Weight, Height, ISNULL(ProfilePic, 'default.png') as ProfilePic FROM Users";
 
                 // If admin typed something in the search box, add a WHERE clause
