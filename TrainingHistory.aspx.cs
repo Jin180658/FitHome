@@ -97,22 +97,45 @@ namespace FitHome
         }
 
         // --- NEW FEATURE: Dynamic HTML generator for Assessment Score ---
-        protected string GetScoreHtml(object bestScoreObj, object quizQuestionCountObj, object courseIdObj, object progressIdObj)
+        // --- Dynamic HTML generator for Assessment Score ---
+        protected string GetScoreHtml(object bestScoreObj, object totalQsObj, object courseIdObj, object progressIdObj)
         {
-            int questionCount = Convert.ToInt32(quizQuestionCountObj);
-            if (questionCount == 0) return "<span class='text-muted small'>N/A</span>";
+            // Define base CSS classes for consistent visual appearance (pill shape, padding, fixed minimum width)
+            string baseCss = "badge rounded-pill px-3 py-2 text-decoration-none d-inline-block";
+            string style = "min-width: 105px; font-size: 0.85rem;";
 
-            if (bestScoreObj == DBNull.Value || bestScoreObj == null)
+            // Parse the total number of questions for the course
+            int totalQs = totalQsObj != DBNull.Value ? Convert.ToInt32(totalQsObj) : 0;
+
+            // Case 1: No quiz questions exist for this course
+            if (totalQs == 0)
             {
-                // Pass both CourseID and ProgressID to TakeQuiz.aspx
-                return $"<a href='TakeQuiz.aspx?courseId={courseIdObj}&progressId={progressIdObj}' class='btn btn-sm btn-warning text-dark fw-bold rounded-pill px-3 py-1 shadow-sm' style='font-size:0.75rem;'><i class='bi bi-patch-exclamation me-1'></i>Take Quiz</a>";
+                // Render N/A badge: Light gray background, gray text, dash icon
+                return $"<span class=\"{baseCss} bg-secondary bg-opacity-10 text-secondary\" style=\"{style}\">" +
+                       $"<i class=\"bi bi-dash-circle me-1\"></i> N/A</span>";
             }
 
-            int bestScore = Convert.ToInt32(bestScoreObj);
-            double percentage = (double)bestScore / questionCount;
-            string colorClass = percentage >= 0.5 ? "text-success bg-success border-success" : "text-danger bg-danger border-danger";
+            // Case 2: Quiz exists, but the user has not attempted it yet
+            if (bestScoreObj == DBNull.Value || bestScoreObj == null)
+            {
+                int courseId = Convert.ToInt32(courseIdObj);
+                int progressId = Convert.ToInt32(progressIdObj);
 
-            return $"<span class='badge {colorClass} bg-opacity-10 border px-3 py-2 rounded-pill fw-bold' style='font-size:0.85rem;'><i class='bi bi-trophy-fill text-warning me-1'></i> {bestScore} / {questionCount}</span>";
+                // Render Take Quiz CTA: Light blue background, blue text, pencil icon
+                string url = $"TakeQuiz.aspx?courseId={courseId}&progressId={progressId}";
+                return $"<a href=\"{url}\" class=\"{baseCss} bg-primary bg-opacity-10 text-primary\" style=\"{style}\">" +
+                       $"<i class=\"bi bi-pencil-square me-1\"></i> Take Quiz</a>";
+            }
+
+            // Case 3: User has attempted the quiz, parse and evaluate their best score
+            int score = Convert.ToInt32(bestScoreObj);
+
+            // Determine if the user passed (score >= 50%) to dynamically apply green or red color themes
+            string colorClass = (score >= totalQs / 2.0) ? "bg-success bg-opacity-10 text-success" : "bg-danger bg-opacity-10 text-danger";
+
+            // Render Score badge: Green/Red background based on result, trophy icon
+            return $"<span class=\"{baseCss} {colorClass}\" style=\"{style}\">" +
+                   $"<i class=\"bi bi-trophy me-1\"></i> {score} / {totalQs}</span>";
         }
     }
 }
