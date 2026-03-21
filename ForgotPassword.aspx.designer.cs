@@ -15,13 +15,22 @@ namespace FitHome
     {
 
         /// <summary>
-        /// pnlStep1 control.
+        /// lnkBack control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlStep1;
+        protected global::System.Web.UI.WebControls.HyperLink lnkBack;
+
+        /// <summary>
+        /// PanelEmail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelEmail;
 
         /// <summary>
         /// txtEmail control.
@@ -33,22 +42,49 @@ namespace FitHome
         protected global::System.Web.UI.WebControls.TextBox txtEmail;
 
         /// <summary>
-        /// btnVerifyEmail control.
+        /// btnSendOTP control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnVerifyEmail;
+        protected global::System.Web.UI.WebControls.Button btnSendOTP;
 
         /// <summary>
-        /// pnlStep2 control.
+        /// PanelOTP control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlStep2;
+        protected global::System.Web.UI.WebControls.Panel PanelOTP;
+
+        /// <summary>
+        /// txtOTP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtOTP;
+
+        /// <summary>
+        /// btnVerifyOTP control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnVerifyOTP;
+
+        /// <summary>
+        /// PanelReset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel PanelReset;
 
         /// <summary>
         /// txtNewPassword control.
@@ -60,22 +96,13 @@ namespace FitHome
         protected global::System.Web.UI.WebControls.TextBox txtNewPassword;
 
         /// <summary>
-        /// txtConfirmNewPassword control.
+        /// txtConfirmPassword control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtConfirmNewPassword;
-
-        /// <summary>
-        /// cvPassword control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CompareValidator cvPassword;
+        protected global::System.Web.UI.WebControls.TextBox txtConfirmPassword;
 
         /// <summary>
         /// btnResetPassword control.
@@ -85,23 +112,5 @@ namespace FitHome
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnResetPassword;
-
-        /// <summary>
-        /// lblMsg control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMsg;
-
-        /// <summary>
-        /// lnkLogin control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink lnkLogin;
     }
 }

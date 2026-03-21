@@ -3,6 +3,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head runat="server">
+    <style>
+        :root {
+            --bg-color: #f4f6f9;
+            --text-color: #333333;  
+            --hero-text-color: #222222;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --border-color: #eeeeee; 
+            
+            --hero-bg-blend: normal; 
+            --hero-overlay-color: rgba(255, 255, 255, 0);
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #121212; 
+            --text-color: #e0e0e0; 
+            --hero-text-color: #f0f0f0;
+            --card-bg: rgba(30, 30, 30, 0.85);
+            --border-color: #444444;   
+
+            --hero-bg-blend: luminosity; 
+            --hero-overlay-color: rgba(0, 0, 0, 0.6); 
+        }
+
+        body {
+            background-color: var(--bg-color) !important; 
+            color: var(--text-color) !important;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        .body-content, form {
+            background-color: transparent !important; 
+        }
+
+        .theme-toggle-container {
+            float: right; 
+            margin-right: 20px;
+            display: flex; align-items: center; height: 100%;
+        }
+        .theme-toggle-btn {
+            background: none; border: none; cursor: pointer;
+            font-size: 1.4rem; outline: none; padding: 5px;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .theme-toggle-btn:hover { transform: scale(1.2) rotate(15deg); }
+    </style>
+
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+
+    <script>
+        if (localStorage.getItem('theme') === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>FitHome Academy</title>
@@ -59,11 +116,16 @@
                         <li><a href="CourseCatalog.aspx">Courses</a></li>
                         <li id="navForum" runat="server" visible="false"><a href="CommunityBoard.aspx">Forum</a></li>
                         <li id="navFavorites" runat="server" visible="false"><a href="MyFavorites.aspx">My Favorites</a></li>
+                        <li style="display: flex; align-items: center; padding-left: 20px;">
+                        <button type="button" id="theme-toggle" style="background: none; border: none; font-size: 1.4rem; cursor: pointer; outline: none;">🌙</button>
+                        </li>
                     </ul>
-                    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
-                </nav>
 
-            </div>
+                    <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+ 
+ 
+                </nav>
+                </div>
         </header>
 
         <div>
@@ -122,6 +184,36 @@
                     link.classList.add('active');
                 }
             });
+        });
+    </script>
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const root = document.documentElement;
+
+        if (localStorage.getItem('theme') === null) {
+            localStorage.setItem('theme', 'light');
+        }
+
+        if (localStorage.getItem('theme') === 'dark') {
+            root.setAttribute('data-theme', 'dark');
+            toggleBtn.innerHTML = '☀️';
+        } else {
+            root.removeAttribute('data-theme');
+            toggleBtn.innerHTML = '🌙';
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            let currentTheme = root.getAttribute('data-theme');
+
+            if (currentTheme === 'dark') {
+                root.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                toggleBtn.innerHTML = '🌙';
+            } else {
+                root.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                toggleBtn.innerHTML = '☀️';
+            }
         });
     </script>
     

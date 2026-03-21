@@ -22,21 +22,21 @@ namespace FitHome
                     conn.Open();
                     object result = cmd.ExecuteScalar(); // ExecuteScalar returns the first column (UserID)
 
-                    if (result != null)
-                    {
-                        // 1. Login Success! Store UserID in Session
-                        Session["UserID"] = result.ToString();
-                        Session["UserName"] = txtUsername.Text.Trim();
+                if (result != null)
+                {
+                    // 1. Login Success! Store UserID in Session
+                    Session["UserID"] = result.ToString();
+                    Session["UserName"] = txtUsername.Text.Trim();
 
-                        // 2. Redirect to User Dashboard (Member C's page)
-                        Response.Redirect("UserDashboard.aspx");
-                    }
-                    else
-                    {
-                        lblMessage.Text = "Invalid username or password.";
-                    }
-                
-                
+                    // 2. Redirect to User Dashboard (Member C's page)
+                    Response.Redirect("UserDashboard.aspx");
+                }
+                else
+                {
+                    Response.Write("<script>alert('Invalid username or password.');</script>");
+                }
+
+
             }
         }
     }

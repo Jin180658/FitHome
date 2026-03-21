@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.Services;
 
 namespace FitHome
 {
@@ -18,10 +19,11 @@ namespace FitHome
 
         protected void btnRegister_Click(object sender, EventArgs e)
         {
+           
             // 1. Get values from the form
             string username = txtUsername.Text.Trim();
             string password = txtPassword.Text.Trim();
-            string confirmPass = txtConfirm.Text.Trim(); // Make sure ID is txtConfirmPassword
+            string confirmPass = txtConfirmPassword.Text.Trim();
             string email = txtEmail.Text.Trim();
 
             // 2. Logic for Confirm Password
