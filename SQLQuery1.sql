@@ -74,7 +74,7 @@ CREATE TABLE [dbo].[Favorites] (
     CONSTRAINT [FK_Favorites_Users] FOREIGN KEY ([UserID]) REFERENCES [dbo].[Users] ([UserID])
 );
 
--- 3. 创建论坛相关表（添加了外键约束）
+
 CREATE TABLE [dbo].[ForumTopics] (
     [TopicID]   INT            IDENTITY (1, 1) NOT NULL,
     [UserID]    INT            NOT NULL,
