@@ -7,15 +7,67 @@
 
 <asp:Content ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+<style>
+    :root {
+        --fav-card-bg: #fdfdfd;
+        --fav-card-border: #eeeeee;
+        --fav-text-main: #212529;
+        --fav-text-muted: #6c757d;
+        --fav-input-bg: #ffffff;
+        --fav-input-border: #dee2e6;
+    }
+
+    [data-theme="dark"] {
+        --fav-card-bg: #222222;
+        --fav-card-border: #444444;
+        --fav-text-main: #ffffff;
+        --fav-text-muted: #bbbbbb;
+        --fav-input-bg: #2a2a2a;
+        --fav-input-border: #444444;
+    }
+
+    .fav-magic-card { background-color: var(--fav-card-bg) !important; border: 1px solid var(--fav-card-border) !important; }
+    .fav-magic-text { color: var(--fav-text-main) !important; transition: color 0.3s ease; }
+    .fav-magic-muted { color: var(--fav-text-muted) !important; transition: color 0.3s ease; }
+    
+    .fav-magic-input {
+        background-color: var(--fav-input-bg) !important;
+        color: var(--fav-text-main) !important;
+        border: 1px solid var(--fav-input-border) !important;
+    }
+    .fav-magic-input:focus { border-color: #ff6600 !important; box-shadow: 0 0 0 0.25rem rgba(255, 102, 0, 0.25) !important; }
+
+    .object-fit-cover { object-fit: cover; }
+    .course-card-hover { 
+        transition: transform 0.2s ease, box-shadow 0.2s ease; 
+        border-radius: 8px; 
+        overflow: hidden;
+    }
+    .course-card-hover:hover { 
+        transform: translateY(-3px); 
+        box-shadow: 0 8px 20px rgba(0,0,0,0.2) !important; 
+    }
+    
+    .title-hover { transition: color 0.3s ease; }
+    .title-hover:hover { color: #ff6600 !important; }
+    
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+</style>
+
 <div class="container mt-5 pt-5 mb-5">
     
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 border-bottom pb-3" data-aos="fade-down">
+    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 border-bottom pb-3" data-aos="fade-down" style="border-color: var(--fav-card-border) !important;">
         <h2 class="fw-bold m-0" style="color:#ff6600;">
             <i class="bi bi-star-fill text-warning me-2"></i>My Favorites
         </h2>
         
         <div class="mt-3 mt-md-0" style="min-width: 200px;">
-            <asp:DropDownList ID="ddlCategoryFilter" runat="server" CssClass="form-select form-select-sm"
+            <asp:DropDownList ID="ddlCategoryFilter" runat="server" CssClass="form-select form-select-sm fav-magic-input"
                 AutoPostBack="true" OnSelectedIndexChanged="ddlCategoryFilter_SelectedIndexChanged">
                 <asp:ListItem Text="All Categories" Value="" />
                 <asp:ListItem Text="Yoga" Value="Yoga" />
@@ -29,7 +81,7 @@
         <asp:Repeater ID="rptFavorites" runat="server" OnItemCommand="rptFavorites_ItemCommand">
             <ItemTemplate>
                 <div class="col-lg-6 mb-3" data-aos="fade-up">
-                    <div class="card shadow-sm h-100 course-card-hover border-0">
+                    <div class="card shadow-sm h-100 course-card-hover border-0 fav-magic-card">
                         <div class="row g-0 h-100">
                             
                             <div class="col-4">
@@ -48,7 +100,7 @@
                                     </div>
                                     
                                     <h6 class="card-title fw-bold mb-2 line-clamp-2">
-                                        <a href='CourseDetails.aspx?id=<%# Eval("CourseID") %>' class="text-dark text-decoration-none title-hover">
+                                        <a href='CourseDetails.aspx?id=<%# Eval("CourseID") %>' class="text-decoration-none title-hover fav-magic-text">
                                             <%# Eval("Title") %>
                                         </a>
                                     </h6>
@@ -74,7 +126,7 @@
     </div>
 
     <asp:Label ID="lblNoFavorites" runat="server"
-        CssClass="text-center text-muted fs-5 mt-5 d-block"
+        CssClass="text-center fs-5 mt-5 d-block fav-magic-muted"
         Visible="false"
         Text="You have no favorite courses yet. Go explore!">
     </asp:Label>
@@ -85,35 +137,5 @@
 <script>
     AOS.init({ duration: 600, once: true });
 </script>
-
-<style>
-/* Customize styles to enhance the overall look */
-.object-fit-cover { 
-    object-fit: cover; 
-}
-.course-card-hover { 
-    transition: transform 0.2s ease, box-shadow 0.2s ease; 
-    border-radius: 8px; 
-    overflow: hidden;
-    background: #fdfdfd;
-}
-.course-card-hover:hover { 
-    transform: translateY(-3px); 
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1) !important; 
-}
-.title-hover {
-    transition: color 0.3s ease;
-}
-.title-hover:hover {
-    color: #ff6600 !important;
-}
-/* Limits the header to a maximum of two lines; display an ellipsis if it exceeds this limit. */
-.line-clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-</style>
 
 </asp:Content>
