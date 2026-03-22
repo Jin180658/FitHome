@@ -3,111 +3,101 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 
 <style>
-body{
-    background:#f5f7fa;
-    font-family:Arial, sans-serif;
+/* Magic Dictionary for About Page */
+:root {
+    --about-card-bg: #ffffff;
+    --about-text-main: #333333;
+    --about-text-muted: #555555;
+    --about-border: #eeeeee;
+    --about-img-border: #eeeeee;
 }
 
-/* Container */
-.about-container{
-    width:85%;
-    margin:auto;
+/* 🌙 Auto-invert colors on Dark Mode */
+[data-theme="dark"] {
+    --about-card-bg: #1e1e1e;
+    --about-text-main: #ffffff;
+    --about-text-muted: #bbbbbb;
+    --about-border: #333333;
+    --about-img-border: #2a2a2a;
 }
 
-/* Section Title */
-.title{
-    text-align:center;
-    font-size:36px;
-    font-weight:bold;
-    margin-top:40px;
-    margin-bottom:20px;
-    color:#333;
-}
-
-/* Project Section */
-.project-section{
-    display:flex;
-    justify-content:space-between;
-    align-items:stretch; 
-    gap:40px;
-    margin-bottom:80px;
-    flex-wrap:wrap;
-}
-
-/* Project Text Card */
-.project-card{
-    background:white;
-    padding:35px;
-    border-radius:12px;
-    box-shadow:0 6px 18px rgba(0,0,0,0.08);
-    flex:1 1 450px;
-    min-width:300px;
-}
-
-.project-text{
-    font-size:18px;
-    line-height:1.8;
-    text-align:justify;
-}
-
-/* Logo Right Side */
-.logo-container{
-    flex:1 1 300px;
-    text-align:center;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    background:white;
-    border-radius:12px;
-    box-shadow:0 6px 18px rgba(0,0,0,0.08);
-    padding:20px;
-}
-
-.logo-container img{
-    max-width:100%;
-    max-height:100%;
-    object-fit:contain;
-}
-
-/* Team Section */
-.team-container{
-    display:flex;
-    justify-content:space-around;
-    flex-wrap:wrap;
-    gap:30px;
-    margin-top:60px;
-}
-
-/* Member Card */
-.member{
-    background:white;
-    width:250px; 
-    border-radius:12px;
-    box-shadow:0 6px 15px rgba(0,0,0,0.08);
-    text-align:center;
-    transition:0.3s;
-}
-
-.member:hover{
-    transform:translateY(-6px);
-    box-shadow:0 10px 22px rgba(0,0,0,0.15);
+body {
+    font-family: Arial, sans-serif;
 }
 
 
-.member img{
-    width:180px;
-    height:180px;
-    border-radius:50%;
-    object-fit:cover;
-    border:4px solid #eee;
-    margin-bottom:15px;
+.about-container { width: 85%; margin: auto; }
+
+
+.title {
+    text-align: center; font-size: 36px; font-weight: bold;
+    margin-top: 40px; margin-bottom: 20px;
+    color: var(--about-text-main) !important;
+    transition: color 0.3s ease;
 }
 
-.member-name{
-    font-size:20px; 
-    font-weight:bold;
-    color:#333;
-    margin-bottom:6px;
+.project-section {
+    display: flex; justify-content: space-between; align-items: stretch; 
+    gap: 40px; margin-bottom: 80px; flex-wrap: wrap;
+}
+
+.project-card {
+    background: var(--about-card-bg) !important;
+    padding: 35px; border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    flex: 1 1 450px; min-width: 300px;
+    border: 1px solid var(--about-border) !important;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.project-text {
+    font-size: 18px; line-height: 1.8; text-align: justify;
+    color: var(--about-text-muted) !important;
+    transition: color 0.3s ease;
+}
+
+.logo-container {
+    flex: 1 1 300px; text-align: center; display: flex;
+    justify-content: center; align-items: center;
+    background: var(--about-card-bg) !important; 
+    border-radius: 12px; box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+    padding: 20px; border: 1px solid var(--about-border) !important;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.logo-container img { max-width: 100%; max-height: 100%; object-fit: contain; }
+
+.team-container {
+    display: flex; justify-content: space-around; flex-wrap: wrap;
+    gap: 30px; margin-top: 60px;
+}
+
+.member {
+    background: var(--about-card-bg) !important;
+    width: 250px; border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    text-align: center; transition: 0.3s;
+    border: 1px solid var(--about-border) !important;
+    padding-top: 25px;
+    padding-bottom: 20px;
+}
+
+.member:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 22px rgba(0,0,0,0.15);
+    border-color: #0d6efd !important;
+}
+
+.member img {
+    width: 180px; height: 180px; border-radius: 50%;
+    object-fit: cover; border: 4px solid var(--about-img-border) !important;
+    margin-bottom: 15px; transition: border-color 0.3s ease;
+}
+
+.member-name {
+    font-size: 20px; font-weight: bold; margin-bottom: 6px;
+    color: var(--about-text-main) !important; 
+    transition: color 0.3s ease;
 }
 </style>
 
@@ -150,7 +140,6 @@ body{
     </div>
 
 
-    <!-- Team Section -->
     <div class="title">Team Members</div>
     <div class="team-container">
 

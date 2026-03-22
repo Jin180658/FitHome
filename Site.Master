@@ -25,6 +25,60 @@
             --hero-bg-blend: luminosity; 
             --hero-overlay-color: rgba(0, 0, 0, 0.6); 
         }
+        [data-theme="dark"] .card, 
+        [data-theme="dark"] .bg-white, 
+        [data-theme="dark"] .bg-light, 
+        [data-theme="dark"] .panel, 
+        [data-theme="dark"] .box,
+        [data-theme="dark"] .modal-content,
+        [data-theme="dark"] table, 
+        [data-theme="dark"] th, 
+        [data-theme="dark"] td 
+        [data-theme="dark"] .info-card,
+        [data-theme="dark"] .login-card,
+        [data-theme="dark"] .register-card,
+        [data-theme="dark"] .course-card,
+        [data-theme="dark"] .item-box,
+        [data-theme="dark"] .white-box,
+        [data-theme="dark"] .content-box 
+        [data-theme="dark"] div, 
+        [data-theme="dark"] section, 
+        [data-theme="dark"] aside {
+            background-color: var(--card-bg) !important;
+            border-color: var(--border-color) !important;
+            color: var(--text-color) !important;
+        }
+
+        [data-theme="dark"] h1, 
+        [data-theme="dark"] h2, 
+        [data-theme="dark"] h3, 
+        [data-theme="dark"] h4, 
+        [data-theme="dark"] h5, 
+        [data-theme="dark"] h6, 
+        [data-theme="dark"] p, 
+        [data-theme="dark"] span, 
+        [data-theme="dark"] label, 
+        [data-theme="dark"] li, 
+        [data-theme="dark"] div {
+            color: var(--text-color) !important;
+        }
+
+        [data-theme="dark"] input[type="text"], 
+        [data-theme="dark"] input[type="password"], 
+        [data-theme="dark"] input[type="email"], 
+        [data-theme="dark"] textarea, 
+        [data-theme="dark"] select,
+        [data-theme="dark"] .form-control {
+            background-color: #2a2a2a !important;
+            color: #ffffff !important;
+            border: 1px solid #444444 !important;
+        }
+
+        [data-theme="dark"] .btn,
+        [data-theme="dark"] input[type="submit"],
+        [data-theme="dark"] button {
+            color: #ffffff !important; 
+        }
 
         body {
             background-color: var(--bg-color) !important; 

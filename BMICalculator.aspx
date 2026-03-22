@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="mt-4 text-center pt-3">
-                            <a href="UserDashboard.aspx" class="text-muted text-decoration-none small fw-bold hover-primary">
+                            <a href="UserDashboard.aspx" class="text-decoration-none small fw-bold hover-primary bmi-magic-muted">
                                 <i class="bi bi-arrow-left me-1"></i> Return to Dashboard
                             </a>
                         </div>
@@ -76,5 +76,33 @@
         /* Logic for highlighting the current BMI category row */
         .transition-all { transition: all 0.3s ease; }
         .scale-up { transform: scale(1.02); }
+        :root {
+            --bmi-card-bg: #ffffff;
+            --bmi-card-border: #eeeeee;
+            --bmi-text-main: #222222;
+            --bmi-text-muted: #666666;
+            --bmi-input-bg: #ffffff;
+            --bmi-input-border: #cccccc;
+        }
+
+        [data-theme="dark"] {
+            --bmi-card-bg: #1e1e1e;
+            --bmi-card-border: #333333;
+            --bmi-text-main: #ffffff;  
+            --bmi-text-muted: #bbbbbb; 
+            --bmi-input-bg: #2a2a2a; 
+            --bmi-input-border: #444444;
+        }
+
+        .bmi-magic-card { background-color: var(--bmi-card-bg) !important; border: 1px solid var(--bmi-card-border) !important; transition: all 0.4s ease; }
+        .bmi-magic-text { color: var(--bmi-text-main) !important; transition: color 0.4s ease; }
+        .bmi-magic-muted { color: var(--bmi-text-muted) !important; transition: color 0.4s ease; }
+        
+        .bmi-magic-input { 
+            background-color: var(--bmi-input-bg) !important; 
+            color: var(--bmi-text-main) !important; 
+            border: 1px solid var(--bmi-input-border) !important; 
+            transition: all 0.4s ease;
+        }
     </style>
 </asp:Content>

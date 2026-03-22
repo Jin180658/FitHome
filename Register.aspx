@@ -2,6 +2,27 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <style>
+        /* Magic Dictionary for Register Page */
+        :root {
+            --reg-card-bg: rgba(255, 255, 255, 0.95);
+            --reg-border: #eeeeee;
+            --reg-text: #333333;
+            --reg-muted: #666666;
+            --reg-input-bg: #ffffff;
+            --reg-input-border: #dddddd;
+        }
+
+        /* 🌙 Auto-invert colors on Dark Mode */
+        [data-theme="dark"] {
+            --reg-card-bg: rgba(30, 30, 30, 0.85);
+            --reg-border: #444444;
+            --reg-text: #ffffff;
+            --reg-muted: #bbbbbb;
+            --reg-input-bg: #2a2a2a;
+            --reg-input-border: #555555;
+        }
+
+        /* Container Layout */
         .register-container {
             display: flex;
             justify-content: center;
@@ -11,43 +32,52 @@
             position: relative;
         }
 
+        /* Card with Magic Variables */
         .register-card {
-            background: var(--card-bg);
+            background: var(--reg-card-bg) !important;
             backdrop-filter: blur(10px);
             border-radius: 15px;
             padding: 40px;
             width: 100%;
             max-width: 500px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            border: 1px solid var(--border-color);
+            border: 1px solid var(--reg-border) !important;
+            transition: all 0.3s ease;
         }
 
-
+        /* Back Link */
         .back-link {
             position: absolute;
             top: 20px;
             left: 20px;
             text-decoration: none;
-            color: #666;
+            color: var(--reg-muted) !important;
             font-weight: 600;
             display: flex;
             align-items: center;
             transition: 0.3s;
         }
-        .back-link:hover { color: #007bff; transform: translateX(-5px); }
+        .back-link:hover { color: #007bff !important; transform: translateX(-5px); }
 
+        /* Form Group and Text */
         .form-group { margin-bottom: 20px; }
-        .form-group label { color: var(--text-color); }
+        .form-group label { color: var(--reg-text) !important; transition: color 0.3s ease; }
+        
+        /* Input Fields with Magic Variables */
         .form-control-custom {
             width: 100%;
             padding: 12px 15px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--reg-input-border) !important;
+            background-color: var(--reg-input-bg) !important;
+            color: var(--reg-text) !important;
             border-radius: 8px;
             transition: 0.3s;
             outline: none;
         }
-        .form-control-custom:focus { border-color: #007bff; box-shadow: 0 0 8px rgba(0,123,255,0.2); }
+        .form-control-custom::placeholder { color: var(--reg-muted) !important; }
+        .form-control-custom:focus { border-color: #007bff !important; box-shadow: 0 0 8px rgba(0,123,255,0.2); }
 
+        /* Primary Register Button */
         .btn-register-premium {
             width: 100%;
             padding: 14px;
@@ -63,9 +93,41 @@
         }
         .btn-register-premium:hover { background: #0056b3; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,123,255,0.3); }
 
+        /* Header Elements */
         .form-header { text-align: center; margin-bottom: 30px; }
-        .form-header h2 { color: var(--text-color); }
-        .form-header p { color: #777; font-size: 0.9em; }
+        .form-header h2 { color: var(--reg-text) !important; transition: color 0.3s ease; }
+        .form-header p { color: var(--reg-muted) !important; font-size: 0.9em; transition: color 0.3s ease; }
+
+        /* Bottom Text */
+        .bottom-text { text-align: center; margin-top: 20px; font-size: 0.85em; color: var(--reg-muted) !important; transition: color 0.3s ease; }
+
+        /* ========================================================
+           Password Toggle Button Styles
+           ======================================================== */
+        .password-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        /* Prevent text from hiding behind the eye icon */
+        .password-container .form-control-custom {
+            padding-right: 45px; 
+        }
+        .toggle-password-btn {
+            position: absolute;
+            right: 12px;
+            background: transparent;
+            border: none;
+            color: var(--reg-muted);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0;
+            outline: none;
+            transition: color 0.2s ease;
+        }
+        .toggle-password-btn:hover {
+            color: #007bff !important;
+        }
     </style>
 
     <div class="register-container">
@@ -92,11 +154,22 @@
             <div style="display: flex; gap: 15px;">
                 <div class="form-group" style="flex:1;">
                     <label>Password</label>
-                    <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control-custom" TextMode="Password" placeholder="Min 6 chars"></asp:TextBox>
+                    <div class="password-container">
+                        <asp:TextBox ID="txtPassword" runat="server" CssClass="form-control-custom" TextMode="Password" placeholder="Min 6 chars"></asp:TextBox>
+                        <button type="button" class="toggle-password-btn" onclick="toggleRegisterPassword('<%= txtPassword.ClientID %>', this)">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
                 </div>
+                
                 <div class="form-group" style="flex:1;">
                     <label>Confirm</label>
-                    <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="form-control-custom" TextMode="Password" placeholder="Repeat password"></asp:TextBox>
+                    <div class="password-container">
+                        <asp:TextBox ID="txtConfirmPassword" runat="server" CssClass="form-control-custom" TextMode="Password" placeholder="Repeat password"></asp:TextBox>
+                        <button type="button" class="toggle-password-btn" onclick="toggleRegisterPassword('<%= txtConfirmPassword.ClientID %>', this)">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -113,9 +186,26 @@
 
             <asp:Button ID="btnRegister" runat="server" Text="Register Now" CssClass="btn-register-premium" OnClick="btnRegister_Click" />
             
-            <p style="text-align:center; margin-top:20px; font-size:0.85em; color:#888;">
+            <p class="bottom-text">
                 Already have an account? <asp:HyperLink ID="lnkLogin" runat="server" NavigateUrl="~/Login.aspx" style="color:#007bff; text-decoration:none; font-weight:600;">Log In</asp:HyperLink>
             </p>
         </div>
     </div>
+
+    <script>
+        function toggleRegisterPassword(inputId, btn) {
+            var input = document.getElementById(inputId);
+            var icon = btn.querySelector('i');
+
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("bi-eye");
+                icon.classList.add("bi-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("bi-eye-slash");
+                icon.classList.add("bi-eye");
+            }
+        }
+    </script>
 </asp:Content>
