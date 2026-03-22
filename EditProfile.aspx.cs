@@ -66,10 +66,24 @@ namespace FitHome
             string userId = Session["UserID"].ToString();
             string finalPicName = null;
 
-            // 1. Handle File Upload (includes 2MB size limit and unique naming)
+            // 1. Handle File Upload (includes 2MB size limit, format check, and unique naming)
             if (fileProfilePic.HasFile)
             {
-                if (fileProfilePic.PostedFile.ContentLength > 2097152) // 2MB Limit
+                // ================= NEW: Check File Type (Format Validation) =================
+                string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".webp" }; // Allowed image formats
+                string fileExtension = Path.GetExtension(fileProfilePic.FileName).ToLower(); // Get extension and convert to lowercase
+
+                // If the uploaded file's extension is NOT in our allowed list, show error and stop
+                if (!Array.Exists(allowedExtensions, ext => ext == fileExtension))
+                {
+                    lblMessage.Text = "❌ Invalid format! Please upload only image files (.jpg, .jpeg, .png, .gif, .webp).";
+                    lblMessage.CssClass = "text-danger fw-bold";
+                    return;
+                }
+                // ============================================================================
+
+                // Original: Check File Size (2MB Limit)
+                if (fileProfilePic.PostedFile.ContentLength > 2097152)
                 {
                     lblMessage.Text = "❌ Image must be smaller than 2MB.";
                     lblMessage.CssClass = "text-danger fw-bold";
@@ -81,7 +95,8 @@ namespace FitHome
                 if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
 
                 // Generate a unique filename using a timestamp to prevent overwriting
-                finalPicName = $"user_{userId}_{DateTime.Now.Ticks}{Path.GetExtension(fileProfilePic.FileName)}";
+                // Notice we are using the 'fileExtension' variable we created above
+                finalPicName = $"user_{userId}_{DateTime.Now.Ticks}{fileExtension}";
                 fileProfilePic.SaveAs(Path.Combine(folderPath, finalPicName));
             }
 
