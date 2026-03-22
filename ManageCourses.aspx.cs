@@ -69,6 +69,19 @@ namespace FitHome
             // Handle physical image upload
             if (fuThumbnail.HasFile)
             {
+                // ================= NEW: Check File Type =================
+                string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+                string fileExtension = Path.GetExtension(fuThumbnail.FileName).ToLower();
+
+                if (!Array.Exists(allowedExtensions, ext => ext == fileExtension))
+                {
+                    lblMessage.Text = "❌ Invalid format! Please upload only image files (.jpg, .jpeg, .png, .gif, .webp).";
+                    lblMessage.CssClass = "d-block mb-3 fw-bold text-danger";
+                    lblMessage.Visible = true;
+                    return;
+                }
+                // ========================================================
+
                 try
                 {
                     // Add timestamp to prevent filename collision (e.g., two people uploading 'yoga.jpg')
@@ -153,6 +166,20 @@ namespace FitHome
                 // Handle new image upload if the admin selects a new file
                 if (fuEditThumbnail != null && fuEditThumbnail.HasFile)
                 {
+                    // ================= NEW: Check File Type =================
+                    string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+                    string fileExtension = Path.GetExtension(fuEditThumbnail.FileName).ToLower();
+
+                    if (!Array.Exists(allowedExtensions, ext => ext == fileExtension))
+                    {
+                        // Assuming you have lblMessage on this page (like in the Insert method)
+                        lblMessage.Text = "❌ Invalid format for thumbnail! Please upload an image file.";
+                        lblMessage.CssClass = "d-block mb-3 fw-bold text-danger";
+                        lblMessage.Visible = true;
+                        return; // Stop the update process
+                    }
+                    // ========================================================
+
                     try
                     {
                         // Create a unique filename using a timestamp to follow proper file naming conventions
@@ -164,6 +191,7 @@ namespace FitHome
                     catch (Exception ex)
                     {
                         lblMessage.Text = "Error uploading image: " + ex.Message;
+                        lblMessage.CssClass = "d-block mb-3 fw-bold text-danger";
                         lblMessage.Visible = true;
                         return;
                     }
