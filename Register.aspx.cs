@@ -37,17 +37,28 @@ namespace FitHome
 
             using (SqlConnection conn = new SqlConnection(connStr))
             {
-                // 3. SQL Insert (UserID is excluded because it's usually Auto-Increment)
-                string sql = "INSERT INTO Users (Username, Password, Email, Weight, Height) VALUES (@user, @pass, @email, @weight, @height)";
+                conn.Open(); 
 
+                string checkSql = "SELECT COUNT(*) FROM Users WHERE Username = @checkUser OR Email = @checkEmail";
+                SqlCommand checkCmd = new SqlCommand(checkSql, conn);
+                checkCmd.Parameters.AddWithValue("@checkUser", username);
+                checkCmd.Parameters.AddWithValue("@checkEmail", email);
+
+                int userExists = (int)checkCmd.ExecuteScalar();
+
+                if (userExists > 0)
+                {
+                    Response.Write("<script>alert('Error: Username or Email already exists! Please try another.');</script>");
+                    return; 
+                }
+
+                string sql = "INSERT INTO Users (Username, Password, Email, Weight, Height) VALUES (@user, @pass, @email, @weight, @height)";
                 SqlCommand cmd = new SqlCommand(sql, conn);
 
-                // 4. Add Parameters
                 cmd.Parameters.AddWithValue("@user", username);
                 cmd.Parameters.AddWithValue("@pass", password);
                 cmd.Parameters.AddWithValue("@email", email);
 
-                // Handle optional Weight/Height
                 if (string.IsNullOrEmpty(txtWeight.Text))
                     cmd.Parameters.AddWithValue("@weight", DBNull.Value);
                 else
@@ -60,18 +71,16 @@ namespace FitHome
 
                 try
                 {
-                    // 5. THE MISSING KEYS: You MUST open and execute!
-                    conn.Open(); 
-                    int result = cmd.ExecuteNonQuery(); 
+                    int result = cmd.ExecuteNonQuery();
 
                     if (result > 0)
                     {
-                        Response.Write("<script>alert('Success!'); window.location='Login.aspx';</script>");
+                        Response.Write("<script>alert('Registration Successful!'); window.location='Login.aspx';</script>");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Response.Write("<script>alert('Error: " + ex.Message.Replace("'", "") + "');</script>");
+                    Response.Write("<script>alert('Database Error: " + ex.Message.Replace("'", "") + "');</script>");
                 }
             }
         }
